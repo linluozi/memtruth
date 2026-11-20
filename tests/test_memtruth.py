@@ -316,6 +316,15 @@ class CliTests(unittest.TestCase):
                       "--out", str(out), "--raw", str(Path(td) / "raw")])
             self.assertEqual(cli_main(["gate", str(out), "--strict"]), 1)
 
+    def test_audit_does_not_persist_by_default(self):
+        raw = ROOT / "benchmark" / "raw"
+        before = set(raw.glob("argvcheck-*"))
+        with tempfile.TemporaryDirectory() as td:
+            path = Path(td) / "argvcheck.py"
+            path.write_text("xs = [bytes(512) for _ in range(500)]\n")
+            self.assertEqual(cli_main(["audit", str(path), "--repeat", "1"]), 0)
+        self.assertEqual(set(raw.glob("argvcheck-*")), before)
+
     def test_audit_missing_script(self):
         self.assertEqual(cli_main(["audit", "/nonexistent/x.py"]), 2)
 

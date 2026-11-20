@@ -24,8 +24,9 @@ def _write_json(path, payload):
 
 def _collect(targets, repeats, scale, raw_dir, script=None):
     runs, skipped = [], []
-    raw_dir = Path(raw_dir)
-    raw_dir.mkdir(parents=True, exist_ok=True)
+    if raw_dir is not None:
+        raw_dir = Path(raw_dir)
+        raw_dir.mkdir(parents=True, exist_ok=True)
     for name in targets:
         for i in range(repeats):
             for mode in ("control", "traced"):
@@ -38,7 +39,8 @@ def _collect(targets, repeats, scale, raw_dir, script=None):
                         break
                     raise
                 runs.append(rec)
-                _write_json(raw_dir / ("%s-%s-%d.json" % (name, mode, i)), rec)
+                if raw_dir is not None:
+                    _write_json(raw_dir / ("%s-%s-%d.json" % (name, mode, i)), rec)
         else:
             continue
         continue
@@ -184,7 +186,8 @@ def build_parser():
     p = sub.add_parser("audit", help="measure an arbitrary script in both modes")
     p.add_argument("script")
     p.add_argument("--repeat", type=int, default=2)
-    p.add_argument("--raw", default=str(DEFAULT_RAW))
+    p.add_argument("--raw", default=None,
+                   help="optional directory for per-run JSON (default: keep nothing)")
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=cmd_audit)
 
