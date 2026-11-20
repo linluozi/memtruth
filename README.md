@@ -43,7 +43,7 @@ Upstream: none
 
 **写页对照（机制验证，不是相关性）**：`numpy_zeros` 与 `numpy_touched` 同库、同大小、同 `np.zeros` 调用，唯一差别是后者 `arr.fill(1.0)` 写了每一页。traced 峰值两次都是 **64.0 MiB（差 <0.01%）**，RSS 峰值从 **0.0 MiB 变成 64.0 MiB**，判定从「RSS 低于噪声地板（≥64x）」翻到 agree(1.00x)。这条对照被 `test_write_pattern_flips_verdict` 机器化：改回不写，结论必然回来。
 
-- `PYTHONPATH=. python3 -m unittest discover -s tests -v` → **35 tests OK**（2.3 s）。覆盖：RSD 与噪声地板、/proc 解析与畸形行、判定边界（1.49/1.50、0.70/0.71）、1 MiB 噪声地板与下界、instrument 成本双条件告警、p25/p50/p75、CLI 的 raw/聚合落盘、脚本审计、traced 字节跨进程确定性、写页翻转判定、gate 的三条拒绝路径、注册表不误 import numpy。
+- `PYTHONPATH=. python3 -m unittest discover -s tests -v` → **35 tests OK**（2.6 s）。覆盖：RSD 与噪声地板、/proc 解析与畸形行、判定边界（1.49/1.50、0.70/0.71）、1 MiB 噪声地板与下界、instrument 成本双条件告警、p25/p50/p75、CLI 的 raw/聚合落盘、脚本审计、traced 字节跨进程确定性、写页翻转判定、gate 的三条拒绝路径、注册表不误 import numpy。
 - 确定性：`small_objects` 在 scale=0.002 下连续两次独立子进程的 `traced_peak` **逐字节相等**（`test_traced_bytes_are_deterministic`）。
 - 所有负载无随机数、无网络、无 sleep；`stdlib_compile` 读本机 CPython 自带真实源码（每 3 个 `.py` 取 1 个）。
 - 本机只有 CPython 3.12.3（`/usr/bin/python3.12`），**无 3.10/3.11，无法交叉**；本文不声称跨版本结论。
