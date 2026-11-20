@@ -69,6 +69,8 @@ FAIL stdlib_compile   profiler inflates peak RSS x1.49 > x1.25
 
 **本仓自己的 11 条负载里有 6 条在 x1.25 下不合格，另有 2 条因 RSS 低于噪声地板不参与该比值**——这是结论，不是 bug：只要进程里有大量小对象，开 tracemalloc 测 RSS 就会把 trace 元数据算进去。闸门的用途是让 CI 在引用内存数字前先发现这件事；RSS 低于 1 MiB 的负载不参与该比值（分母是噪声）；traced 与 RSS 都低于 1 MiB 时判 `below-noise-floor`，不给任何比值。
 
+数字该怎么写、我们自己的历史内存声明是什么口径，见 [`docs/claims-recheck.md`](docs/claims-recheck.md)。
+
 ## 5 · 复现（三条命令）
 
 ```bash
