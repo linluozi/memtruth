@@ -85,7 +85,12 @@ def main(argv=None):
             print(json.dumps({"error": "no such script: %s" % path}))
             return 2
         label = os.path.basename(path)
-        run = lambda: runpy.run_path(path, run_name="__main__")
+
+        def run():
+            # The audited script must not see memtruth's own flags in argv;
+            # give it the same argv a plain `python script.py` would receive.
+            sys.argv = [path]
+            runpy.run_path(path, run_name="__main__")
 
     record = _measure(run, args.mode, args.scale, label)
     print(json.dumps(record, sort_keys=True))

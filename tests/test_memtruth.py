@@ -244,6 +244,19 @@ class MeasureTests(unittest.TestCase):
         self.assertLess(abs(zt["traced_peak"] - tt["traced_peak"]), 0.05 * tt["traced_peak"])
         self.assertGreater(zt["traced_peak"], 2_000_000)
 
+    def test_script_sees_clean_argv(self):
+        import textwrap
+        with tempfile.TemporaryDirectory() as td:
+            path = Path(td) / "argvcheck.py"
+            path.write_text(textwrap.dedent("""
+                import sys
+                if sys.argv != [%r]:
+                    raise SystemExit(3)
+                xs = [bytes(256) for _ in range(1000)]
+            """ % str(Path(td) / "argvcheck.py")))
+            rec = measure.run_once(script=path, mode="control")
+            self.assertGreater(rec["rss_peak_delta"], 0)
+
     def test_script_mode(self):
         with tempfile.TemporaryDirectory() as td:
             path = Path(td) / "alloc.py"

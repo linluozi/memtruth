@@ -4,7 +4,7 @@
 
 Upstream: none
 
-本仓库是原创测量工具，不含上游补丁，也没有修改任何第三方库。任务书里的 G1–G5（上游测试绿 / 差分一致 / 中位加速 / 大规模不退化 / RSS 不退化）**不适用**：这里没有「优化后更快」的声明。替代物是第 2 节的可复现实测、第 3 节的 38 个测试与第 4 节的 CI 闸门。
+本仓库是原创测量工具，不含上游补丁，也没有修改任何第三方库。任务书里的 G1–G5（上游测试绿 / 差分一致 / 中位加速 / 大规模不退化 / RSS 不退化）**不适用**：这里没有「优化后更快」的声明。替代物是第 2 节的可复现实测、第 3 节的 39 个测试与第 4 节的 CI 闸门。
 
 ## 1 · 它回答什么问题
 
@@ -43,7 +43,7 @@ Upstream: none
 
 **写页对照（机制验证，不是相关性）**：`numpy_zeros` 与 `numpy_touched` 同库、同大小、同 `np.zeros` 调用，唯一差别是后者 `arr.fill(1.0)` 写了每一页。traced 峰值两次完全相同（**67,109,024 B**，三次重复均一致），RSS 峰值从 **0.0 MiB 变成 64.0 MiB**，判定从「RSS 低于噪声地板（≥64x）」翻到 agree(1.00x)。这条对照被 `test_write_pattern_flips_verdict` 机器化：改回不写，结论必然回来。
 
-- `PYTHONPATH=. python3 -m unittest discover -s tests -v` → **38 tests OK**。覆盖：RSD 与噪声地板、/proc 解析与畸形行、判定边界（1.49/1.50、0.70/0.71）、1 MiB 噪声地板与下界、instrument 成本双条件告警、p25/p50/p75、CLI 的 raw/聚合落盘、脚本审计、traced 字节跨进程确定性、写页翻转判定、gate 的三条拒绝路径、README 表格与 calibration.json 逐格一致、注册表不误 import numpy。
+- `PYTHONPATH=. python3 -m unittest discover -s tests -v` → **39 tests OK**。覆盖：RSD 与噪声地板、/proc 解析与畸形行、判定边界（1.49/1.50、0.70/0.71）、1 MiB 噪声地板与下界、instrument 成本双条件告警、p25/p50/p75、CLI 的 raw/聚合落盘、脚本审计、traced 字节跨进程确定性、写页翻转判定、gate 的三条拒绝路径、README 表格与 calibration.json 逐格一致、注册表不误 import numpy。
 - 确定性：`small_objects` 在 scale=0.002 下连续 5 次独立子进程的 `traced_peak` **逐字节相等**（`test_traced_bytes_are_deterministic`）。
 - 所有负载无随机数、无网络、无 sleep；`stdlib_compile` 读本机 CPython 自带真实源码（每 3 个 `.py` 取 1 个）。
 - 本机只有 CPython 3.12.3（`/usr/bin/python3.12`），**无 3.10/3.11，无法交叉**；本文不声称跨版本结论。
@@ -79,7 +79,7 @@ python3 benchmark/bench.py --repeat 3          # 写 benchmark/calibration.json 
 PYTHONPATH=. python3 -m unittest discover -s tests -v
 ```
 
-单条路径：`python3 -m memtruth run sqlite_rows --repeat 3`；审计自己的脚本：`python3 -m memtruth audit myscript.py`。
+单条路径：`python3 -m memtruth run sqlite_rows --repeat 3`；审计自己的脚本：`python3 -m memtruth audit myscript.py`（脚本收到的 `argv` 是 `[myscript.py]`，不会混入 memtruth 的参数）。
 
 ## 6 · 环境
 
