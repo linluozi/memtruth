@@ -4,7 +4,7 @@
   "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
   "python": "3.12.3",
   "rss_before": 14753792,
-  "rss_final_delta": 22052864,
+  "rss_final_delta": 21958656,
   "rss_peak_delta": 37543936,
   "scale": 1.0,
   "traced_cur": null,

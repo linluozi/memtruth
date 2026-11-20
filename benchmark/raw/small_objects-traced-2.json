@@ -3,7 +3,7 @@
   "mode": "traced",
   "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
   "python": "3.12.3",
-  "rss_before": 14761984,
+  "rss_before": 14745600,
   "rss_final_delta": 111415296,
   "rss_peak_delta": 111407104,
   "scale": 1.0,

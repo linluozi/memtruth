@@ -167,6 +167,18 @@ class MeasureTests(unittest.TestCase):
         with self.assertRaises(KeyError):
             measure.run_once(workload="nope", mode="traced")
 
+    def test_write_pattern_flips_verdict(self):
+        """Same allocation, same size: only touching the pages may change RSS."""
+        zeros = measure.run_once(workload="numpy_zeros", mode="control", scale=0.05)
+        touched = measure.run_once(workload="numpy_touched", mode="control", scale=0.05)
+        self.assertLess(zeros["rss_peak_delta"], 200_000)
+        self.assertGreater(touched["rss_peak_delta"], 3_000_000)
+        zt = measure.run_once(workload="numpy_zeros", mode="traced", scale=0.05)
+        tt = measure.run_once(workload="numpy_touched", mode="traced", scale=0.05)
+        # traced bytes are blind to the write pattern: both count the request
+        self.assertLess(abs(zt["traced_peak"] - tt["traced_peak"]), 0.05 * tt["traced_peak"])
+        self.assertGreater(zt["traced_peak"], 2_000_000)
+
     def test_script_mode(self):
         with tempfile.TemporaryDirectory() as td:
             path = Path(td) / "alloc.py"

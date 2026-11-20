@@ -35,6 +35,16 @@ WORKLOADS = {
         "category": "lazy zero-filled buffer",
         "description": "numpy.zeros(64 MiB) never written to",
     },
+    "numpy_touched": {
+        "module": "memtruth.workloads.numpy_touched",
+        "category": "fully-written buffer",
+        "description": "numpy.zeros(64 MiB) with every page written (control for numpy_zeros)",
+    },
+    "stdlib_compile": {
+        "module": "memtruth.workloads.stdlib_compile",
+        "category": "real code (CPython stdlib)",
+        "description": "compile every 3rd .py of 5 stdlib packages, keep code objects",
+    },
     "json_roundtrip": {
         "module": "memtruth.workloads.json_roundtrip",
         "category": "parser (transient buffers)",

@@ -1,5 +1,5 @@
 {
-  "elapsed_seconds": 14.144,
+  "elapsed_seconds": 14.806,
   "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
   "python": "3.12.3",
   "repeats": 3,
@@ -9,7 +9,7 @@
       "mode": "control",
       "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
       "python": "3.12.3",
-      "rss_before": 14970880,
+      "rss_before": 14925824,
       "rss_final_delta": 216014848,
       "rss_peak_delta": 216010752,
       "scale": 1.0,
@@ -23,7 +23,7 @@
       "mode": "traced",
       "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
       "python": "3.12.3",
-      "rss_before": 14741504,
+      "rss_before": 14794752,
       "rss_final_delta": 236187648,
       "rss_peak_delta": 236179456,
       "scale": 1.0,
@@ -37,35 +37,7 @@
       "mode": "control",
       "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
       "python": "3.12.3",
-      "rss_before": 14790656,
-      "rss_final_delta": 216006656,
-      "rss_peak_delta": 216006656,
-      "scale": 1.0,
-      "traced_cur": null,
-      "traced_final": null,
-      "traced_peak": null,
-      "workload": "bytes_1k"
-    },
-    {
-      "gc_collections": 22,
-      "mode": "traced",
-      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
-      "python": "3.12.3",
-      "rss_before": 14761984,
-      "rss_final_delta": 236187648,
-      "rss_peak_delta": 236179456,
-      "scale": 1.0,
-      "traced_cur": 213043826,
-      "traced_final": 213043954,
-      "traced_peak": 213055734,
-      "workload": "bytes_1k"
-    },
-    {
-      "gc_collections": 22,
-      "mode": "control",
-      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
-      "python": "3.12.3",
-      "rss_before": 14766080,
+      "rss_before": 14753792,
       "rss_final_delta": 216006656,
       "rss_peak_delta": 216006656,
       "scale": 1.0,
@@ -89,13 +61,97 @@
       "workload": "bytes_1k"
     },
     {
+      "gc_collections": 22,
+      "mode": "control",
+      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+      "python": "3.12.3",
+      "rss_before": 14761984,
+      "rss_final_delta": 216006656,
+      "rss_peak_delta": 216006656,
+      "scale": 1.0,
+      "traced_cur": null,
+      "traced_final": null,
+      "traced_peak": null,
+      "workload": "bytes_1k"
+    },
+    {
+      "gc_collections": 22,
+      "mode": "traced",
+      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+      "python": "3.12.3",
+      "rss_before": 14757888,
+      "rss_final_delta": 236187648,
+      "rss_peak_delta": 236179456,
+      "scale": 1.0,
+      "traced_cur": 213043826,
+      "traced_final": 213043954,
+      "traced_peak": 213055734,
+      "workload": "bytes_1k"
+    },
+    {
       "gc_collections": 308,
       "mode": "control",
       "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
       "python": "3.12.3",
-      "rss_before": 14983168,
-      "rss_final_delta": 1507328,
-      "rss_peak_delta": 46751744,
+      "rss_before": 15065088,
+      "rss_final_delta": 1671168,
+      "rss_peak_delta": 46669824,
+      "scale": 1.0,
+      "traced_cur": null,
+      "traced_final": null,
+      "traced_peak": null,
+      "workload": "churn_free"
+    },
+    {
+      "gc_collections": 307,
+      "mode": "traced",
+      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+      "python": "3.12.3",
+      "rss_before": 14745600,
+      "rss_final_delta": 51089408,
+      "rss_peak_delta": 111292416,
+      "scale": 1.0,
+      "traced_cur": 19798,
+      "traced_final": 19926,
+      "traced_peak": 44835856,
+      "workload": "churn_free"
+    },
+    {
+      "gc_collections": 307,
+      "mode": "control",
+      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+      "python": "3.12.3",
+      "rss_before": 14856192,
+      "rss_final_delta": 1736704,
+      "rss_peak_delta": 46747648,
+      "scale": 1.0,
+      "traced_cur": null,
+      "traced_final": null,
+      "traced_peak": null,
+      "workload": "churn_free"
+    },
+    {
+      "gc_collections": 307,
+      "mode": "traced",
+      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+      "python": "3.12.3",
+      "rss_before": 14753792,
+      "rss_final_delta": 51122176,
+      "rss_peak_delta": 111407104,
+      "scale": 1.0,
+      "traced_cur": 19798,
+      "traced_final": 19926,
+      "traced_peak": 44835856,
+      "workload": "churn_free"
+    },
+    {
+      "gc_collections": 307,
+      "mode": "control",
+      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+      "python": "3.12.3",
+      "rss_before": 14753792,
+      "rss_final_delta": 1740800,
+      "rss_peak_delta": 46718976,
       "scale": 1.0,
       "traced_cur": null,
       "traced_final": null,
@@ -117,69 +173,13 @@
       "workload": "churn_free"
     },
     {
-      "gc_collections": 307,
-      "mode": "control",
-      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
-      "python": "3.12.3",
-      "rss_before": 14757888,
-      "rss_final_delta": 1658880,
-      "rss_peak_delta": 46714880,
-      "scale": 1.0,
-      "traced_cur": null,
-      "traced_final": null,
-      "traced_peak": null,
-      "workload": "churn_free"
-    },
-    {
-      "gc_collections": 307,
-      "mode": "traced",
-      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
-      "python": "3.12.3",
-      "rss_before": 14704640,
-      "rss_final_delta": 51093504,
-      "rss_peak_delta": 111329280,
-      "scale": 1.0,
-      "traced_cur": 19834,
-      "traced_final": 19962,
-      "traced_peak": 44835892,
-      "workload": "churn_free"
-    },
-    {
-      "gc_collections": 307,
-      "mode": "control",
-      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
-      "python": "3.12.3",
-      "rss_before": 14757888,
-      "rss_final_delta": 1634304,
-      "rss_peak_delta": 46714880,
-      "scale": 1.0,
-      "traced_cur": null,
-      "traced_final": null,
-      "traced_peak": null,
-      "workload": "churn_free"
-    },
-    {
-      "gc_collections": 307,
-      "mode": "traced",
-      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
-      "python": "3.12.3",
-      "rss_before": 14757888,
-      "rss_final_delta": 51134464,
-      "rss_peak_delta": 111271936,
-      "scale": 1.0,
-      "traced_cur": 19798,
-      "traced_final": 19926,
-      "traced_peak": 44835856,
-      "workload": "churn_free"
-    },
-    {
       "gc_collections": 109,
       "mode": "control",
       "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
       "python": "3.12.3",
-      "rss_before": 14991360,
-      "rss_final_delta": 21925888,
-      "rss_peak_delta": 37568512,
+      "rss_before": 14983168,
+      "rss_final_delta": 21995520,
+      "rss_peak_delta": 37576704,
       "scale": 1.0,
       "traced_cur": null,
       "traced_final": null,
@@ -191,9 +191,9 @@
       "mode": "traced",
       "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
       "python": "3.12.3",
-      "rss_before": 14860288,
-      "rss_final_delta": 64303104,
-      "rss_peak_delta": 79482880,
+      "rss_before": 14745600,
+      "rss_final_delta": 64331776,
+      "rss_peak_delta": 79462400,
       "scale": 1.0,
       "traced_cur": 18092562,
       "traced_final": 18092690,
@@ -206,7 +206,7 @@
       "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
       "python": "3.12.3",
       "rss_before": 14753792,
-      "rss_final_delta": 22052864,
+      "rss_final_delta": 21958656,
       "rss_peak_delta": 37543936,
       "scale": 1.0,
       "traced_cur": null,
@@ -219,9 +219,9 @@
       "mode": "traced",
       "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
       "python": "3.12.3",
-      "rss_before": 14766080,
-      "rss_final_delta": 64266240,
-      "rss_peak_delta": 79441920,
+      "rss_before": 14757888,
+      "rss_final_delta": 64348160,
+      "rss_peak_delta": 79450112,
       "scale": 1.0,
       "traced_cur": 18092562,
       "traced_final": 18092690,
@@ -233,9 +233,9 @@
       "mode": "control",
       "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
       "python": "3.12.3",
-      "rss_before": 14856192,
-      "rss_final_delta": 22052864,
-      "rss_peak_delta": 37572608,
+      "rss_before": 14753792,
+      "rss_final_delta": 22056960,
+      "rss_peak_delta": 37543936,
       "scale": 1.0,
       "traced_cur": null,
       "traced_final": null,
@@ -247,9 +247,9 @@
       "mode": "traced",
       "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
       "python": "3.12.3",
-      "rss_before": 14753792,
-      "rss_final_delta": 64266240,
-      "rss_peak_delta": 79450112,
+      "rss_before": 14729216,
+      "rss_final_delta": 64299008,
+      "rss_peak_delta": 79372288,
       "scale": 1.0,
       "traced_cur": 18092562,
       "traced_final": 18092690,
@@ -261,9 +261,9 @@
       "mode": "control",
       "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
       "python": "3.12.3",
-      "rss_before": 15015936,
+      "rss_before": 14970880,
       "rss_final_delta": 33558528,
-      "rss_peak_delta": 67035136,
+      "rss_peak_delta": 66949120,
       "scale": 1.0,
       "traced_cur": null,
       "traced_final": null,
@@ -275,37 +275,9 @@
       "mode": "traced",
       "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
       "python": "3.12.3",
-      "rss_before": 14770176,
+      "rss_before": 14790656,
       "rss_final_delta": 33574912,
-      "rss_peak_delta": 67018752,
-      "scale": 1.0,
-      "traced_cur": 19866,
-      "traced_final": 19994,
-      "traced_peak": 33575889,
-      "workload": "mmap_pages"
-    },
-    {
-      "gc_collections": 22,
-      "mode": "control",
-      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
-      "python": "3.12.3",
-      "rss_before": 14774272,
-      "rss_final_delta": 33566720,
-      "rss_peak_delta": 67014656,
-      "scale": 1.0,
-      "traced_cur": null,
-      "traced_final": null,
-      "traced_peak": null,
-      "workload": "mmap_pages"
-    },
-    {
-      "gc_collections": 22,
-      "mode": "traced",
-      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
-      "python": "3.12.3",
-      "rss_before": 14794752,
-      "rss_final_delta": 33574912,
-      "rss_peak_delta": 66994176,
+      "rss_peak_delta": 66998272,
       "scale": 1.0,
       "traced_cur": 19866,
       "traced_final": 19994,
@@ -331,9 +303,9 @@
       "mode": "traced",
       "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
       "python": "3.12.3",
-      "rss_before": 14749696,
+      "rss_before": 14794752,
       "rss_final_delta": 33574912,
-      "rss_peak_delta": 66908160,
+      "rss_peak_delta": 66994176,
       "scale": 1.0,
       "traced_cur": 19866,
       "traced_final": 19994,
@@ -341,11 +313,123 @@
       "workload": "mmap_pages"
     },
     {
+      "gc_collections": 22,
+      "mode": "control",
+      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+      "python": "3.12.3",
+      "rss_before": 14794752,
+      "rss_final_delta": 33562624,
+      "rss_peak_delta": 66994176,
+      "scale": 1.0,
+      "traced_cur": null,
+      "traced_final": null,
+      "traced_peak": null,
+      "workload": "mmap_pages"
+    },
+    {
+      "gc_collections": 22,
+      "mode": "traced",
+      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+      "python": "3.12.3",
+      "rss_before": 14794752,
+      "rss_final_delta": 33574912,
+      "rss_peak_delta": 66994176,
+      "scale": 1.0,
+      "traced_cur": 19866,
+      "traced_final": 19994,
+      "traced_peak": 33575889,
+      "workload": "mmap_pages"
+    },
+    {
+      "gc_collections": 50,
+      "mode": "control",
+      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+      "python": "3.12.3",
+      "rss_before": 34222080,
+      "rss_final_delta": 67112960,
+      "rss_peak_delta": 67112960,
+      "scale": 1.0,
+      "traced_cur": null,
+      "traced_final": null,
+      "traced_peak": null,
+      "workload": "numpy_touched"
+    },
+    {
+      "gc_collections": 50,
+      "mode": "traced",
+      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+      "python": "3.12.3",
+      "rss_before": 34250752,
+      "rss_final_delta": 67117056,
+      "rss_peak_delta": 67117056,
+      "scale": 1.0,
+      "traced_cur": 67128730,
+      "traced_final": 67128858,
+      "traced_peak": 67140694,
+      "workload": "numpy_touched"
+    },
+    {
+      "gc_collections": 50,
+      "mode": "control",
+      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+      "python": "3.12.3",
+      "rss_before": 34197504,
+      "rss_final_delta": 67112960,
+      "rss_peak_delta": 67112960,
+      "scale": 1.0,
+      "traced_cur": null,
+      "traced_final": null,
+      "traced_peak": null,
+      "workload": "numpy_touched"
+    },
+    {
+      "gc_collections": 50,
+      "mode": "traced",
+      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+      "python": "3.12.3",
+      "rss_before": 34197504,
+      "rss_final_delta": 67117056,
+      "rss_peak_delta": 67117056,
+      "scale": 1.0,
+      "traced_cur": 67128730,
+      "traced_final": 67128858,
+      "traced_peak": 67140694,
+      "workload": "numpy_touched"
+    },
+    {
+      "gc_collections": 50,
+      "mode": "control",
+      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+      "python": "3.12.3",
+      "rss_before": 34279424,
+      "rss_final_delta": 67112960,
+      "rss_peak_delta": 67112960,
+      "scale": 1.0,
+      "traced_cur": null,
+      "traced_final": null,
+      "traced_peak": null,
+      "workload": "numpy_touched"
+    },
+    {
+      "gc_collections": 50,
+      "mode": "traced",
+      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+      "python": "3.12.3",
+      "rss_before": 34189312,
+      "rss_final_delta": 67117056,
+      "rss_peak_delta": 67117056,
+      "scale": 1.0,
+      "traced_cur": 67128730,
+      "traced_final": 67128858,
+      "traced_peak": 67140694,
+      "workload": "numpy_touched"
+    },
+    {
       "gc_collections": 51,
       "mode": "control",
       "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
       "python": "3.12.3",
-      "rss_before": 34275328,
+      "rss_before": 34189312,
       "rss_final_delta": 4096,
       "rss_peak_delta": 4096,
       "scale": 1.0,
@@ -359,35 +443,7 @@
       "mode": "traced",
       "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
       "python": "3.12.3",
-      "rss_before": 34234368,
-      "rss_final_delta": 8192,
-      "rss_peak_delta": 8192,
-      "scale": 1.0,
-      "traced_cur": 67128685,
-      "traced_final": 67128813,
-      "traced_peak": 67140649,
-      "workload": "numpy_zeros"
-    },
-    {
-      "gc_collections": 50,
-      "mode": "control",
-      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
-      "python": "3.12.3",
-      "rss_before": 34185216,
-      "rss_final_delta": 4096,
-      "rss_peak_delta": 4096,
-      "scale": 1.0,
-      "traced_cur": null,
-      "traced_final": null,
-      "traced_peak": null,
-      "workload": "numpy_zeros"
-    },
-    {
-      "gc_collections": 50,
-      "mode": "traced",
-      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
-      "python": "3.12.3",
-      "rss_before": 34181120,
+      "rss_before": 34312192,
       "rss_final_delta": 8192,
       "rss_peak_delta": 8192,
       "scale": 1.0,
@@ -401,7 +457,7 @@
       "mode": "control",
       "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
       "python": "3.12.3",
-      "rss_before": 34226176,
+      "rss_before": 34242560,
       "rss_final_delta": 4096,
       "rss_peak_delta": 4096,
       "scale": 1.0,
@@ -415,7 +471,35 @@
       "mode": "traced",
       "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
       "python": "3.12.3",
-      "rss_before": 34246656,
+      "rss_before": 34390016,
+      "rss_final_delta": 8192,
+      "rss_peak_delta": 8192,
+      "scale": 1.0,
+      "traced_cur": 67128730,
+      "traced_final": 67128858,
+      "traced_peak": 67140694,
+      "workload": "numpy_zeros"
+    },
+    {
+      "gc_collections": 50,
+      "mode": "control",
+      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+      "python": "3.12.3",
+      "rss_before": 34349056,
+      "rss_final_delta": 4096,
+      "rss_peak_delta": 4096,
+      "scale": 1.0,
+      "traced_cur": null,
+      "traced_final": null,
+      "traced_peak": null,
+      "workload": "numpy_zeros"
+    },
+    {
+      "gc_collections": 50,
+      "mode": "traced",
+      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+      "python": "3.12.3",
+      "rss_before": 34385920,
       "rss_final_delta": 8192,
       "rss_peak_delta": 8192,
       "scale": 1.0,
@@ -429,9 +513,9 @@
       "mode": "control",
       "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
       "python": "3.12.3",
-      "rss_before": 14954496,
+      "rss_before": 14962688,
       "rss_final_delta": 44326912,
-      "rss_peak_delta": 45338624,
+      "rss_peak_delta": 45330432,
       "scale": 1.0,
       "traced_cur": null,
       "traced_final": null,
@@ -443,9 +527,37 @@
       "mode": "traced",
       "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
       "python": "3.12.3",
-      "rss_before": 14753792,
+      "rss_before": 14737408,
+      "rss_final_delta": 124690432,
+      "rss_peak_delta": 125665280,
+      "scale": 1.0,
+      "traced_cur": 39556690,
+      "traced_final": 39556818,
+      "traced_peak": 40607627,
+      "workload": "regex_findall"
+    },
+    {
+      "gc_collections": 246,
+      "mode": "control",
+      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+      "python": "3.12.3",
+      "rss_before": 14843904,
+      "rss_final_delta": 44331008,
+      "rss_peak_delta": 45187072,
+      "scale": 1.0,
+      "traced_cur": null,
+      "traced_final": null,
+      "traced_peak": null,
+      "workload": "regex_findall"
+    },
+    {
+      "gc_collections": 246,
+      "mode": "traced",
+      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+      "python": "3.12.3",
+      "rss_before": 14794752,
       "rss_final_delta": 124686336,
-      "rss_peak_delta": 125636608,
+      "rss_peak_delta": 125607936,
       "scale": 1.0,
       "traced_cur": 39556690,
       "traced_final": 39556818,
@@ -471,9 +583,9 @@
       "mode": "traced",
       "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
       "python": "3.12.3",
-      "rss_before": 14757888,
-      "rss_final_delta": 124690432,
-      "rss_peak_delta": 125640704,
+      "rss_before": 14741504,
+      "rss_final_delta": 124686336,
+      "rss_peak_delta": 125652992,
       "scale": 1.0,
       "traced_cur": 39556690,
       "traced_final": 39556818,
@@ -481,39 +593,39 @@
       "workload": "regex_findall"
     },
     {
-      "gc_collections": 246,
+      "gc_collections": 308,
       "mode": "control",
       "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
       "python": "3.12.3",
-      "rss_before": 14745600,
-      "rss_final_delta": 44335104,
-      "rss_peak_delta": 45285376,
+      "rss_before": 15011840,
+      "rss_final_delta": 46780416,
+      "rss_peak_delta": 46776320,
       "scale": 1.0,
       "traced_cur": null,
       "traced_final": null,
       "traced_peak": null,
-      "workload": "regex_findall"
+      "workload": "small_objects"
     },
     {
-      "gc_collections": 246,
+      "gc_collections": 307,
       "mode": "traced",
       "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
       "python": "3.12.3",
-      "rss_before": 14860288,
-      "rss_final_delta": 124686336,
-      "rss_peak_delta": 125665280,
+      "rss_before": 14761984,
+      "rss_final_delta": 111415296,
+      "rss_peak_delta": 111407104,
       "scale": 1.0,
-      "traced_cur": 39556690,
-      "traced_final": 39556818,
-      "traced_peak": 40607627,
-      "workload": "regex_findall"
+      "traced_cur": 44835602,
+      "traced_final": 44835730,
+      "traced_peak": 44846662,
+      "workload": "small_objects"
     },
     {
       "gc_collections": 307,
       "mode": "control",
       "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
       "python": "3.12.3",
-      "rss_before": 14733312,
+      "rss_before": 14737408,
       "rss_final_delta": 46784512,
       "rss_peak_delta": 46784512,
       "scale": 1.0,
@@ -527,7 +639,7 @@
       "mode": "traced",
       "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
       "python": "3.12.3",
-      "rss_before": 14745600,
+      "rss_before": 14757888,
       "rss_final_delta": 111415296,
       "rss_peak_delta": 111407104,
       "scale": 1.0,
@@ -555,35 +667,7 @@
       "mode": "traced",
       "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
       "python": "3.12.3",
-      "rss_before": 14786560,
-      "rss_final_delta": 111415296,
-      "rss_peak_delta": 111407104,
-      "scale": 1.0,
-      "traced_cur": 44835602,
-      "traced_final": 44835730,
-      "traced_peak": 44846662,
-      "workload": "small_objects"
-    },
-    {
-      "gc_collections": 307,
-      "mode": "control",
-      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
-      "python": "3.12.3",
-      "rss_before": 14786560,
-      "rss_final_delta": 46784512,
-      "rss_peak_delta": 46784512,
-      "scale": 1.0,
-      "traced_cur": null,
-      "traced_final": null,
-      "traced_peak": null,
-      "workload": "small_objects"
-    },
-    {
-      "gc_collections": 307,
-      "mode": "traced",
-      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
-      "python": "3.12.3",
-      "rss_before": 14761984,
+      "rss_before": 14745600,
       "rss_final_delta": 111415296,
       "rss_peak_delta": 111407104,
       "scale": 1.0,
@@ -597,9 +681,37 @@
       "mode": "control",
       "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
       "python": "3.12.3",
-      "rss_before": 15978496,
-      "rss_final_delta": 3780608,
-      "rss_peak_delta": 3780608,
+      "rss_before": 15900672,
+      "rss_final_delta": 3883008,
+      "rss_peak_delta": 3883008,
+      "scale": 1.0,
+      "traced_cur": null,
+      "traced_final": null,
+      "traced_peak": null,
+      "workload": "sqlite_rows"
+    },
+    {
+      "gc_collections": 50,
+      "mode": "traced",
+      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+      "python": "3.12.3",
+      "rss_before": 15785984,
+      "rss_final_delta": 6971392,
+      "rss_peak_delta": 7991296,
+      "scale": 1.0,
+      "traced_cur": 21354,
+      "traced_final": 21482,
+      "traced_peak": 1947076,
+      "workload": "sqlite_rows"
+    },
+    {
+      "gc_collections": 50,
+      "mode": "control",
+      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+      "python": "3.12.3",
+      "rss_before": 15781888,
+      "rss_final_delta": 3813376,
+      "rss_peak_delta": 3813376,
       "scale": 1.0,
       "traced_cur": null,
       "traced_final": null,
@@ -625,7 +737,7 @@
       "mode": "control",
       "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
       "python": "3.12.3",
-      "rss_before": 15781888,
+      "rss_before": 15769600,
       "rss_final_delta": 3784704,
       "rss_peak_delta": 3784704,
       "scale": 1.0,
@@ -639,42 +751,98 @@
       "mode": "traced",
       "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
       "python": "3.12.3",
-      "rss_before": 15765504,
+      "rss_before": 15732736,
       "rss_final_delta": 6979584,
-      "rss_peak_delta": 7884800,
+      "rss_peak_delta": 7917568,
       "scale": 1.0,
-      "traced_cur": 21354,
-      "traced_final": 21482,
-      "traced_peak": 1947076,
+      "traced_cur": 21309,
+      "traced_final": 21437,
+      "traced_peak": 1947031,
       "workload": "sqlite_rows"
     },
     {
-      "gc_collections": 50,
+      "gc_collections": 26,
       "mode": "control",
       "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
       "python": "3.12.3",
-      "rss_before": 15761408,
-      "rss_final_delta": 3796992,
-      "rss_peak_delta": 3796992,
+      "rss_before": 14753792,
+      "rss_final_delta": 5443584,
+      "rss_peak_delta": 5779456,
       "scale": 1.0,
       "traced_cur": null,
       "traced_final": null,
       "traced_peak": null,
-      "workload": "sqlite_rows"
+      "workload": "stdlib_compile"
     },
     {
-      "gc_collections": 50,
+      "gc_collections": 26,
       "mode": "traced",
       "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
       "python": "3.12.3",
-      "rss_before": 15745024,
-      "rss_final_delta": 7000064,
-      "rss_peak_delta": 7901184,
+      "rss_before": 14766080,
+      "rss_final_delta": 8548352,
+      "rss_peak_delta": 8548352,
       "scale": 1.0,
-      "traced_cur": 21354,
-      "traced_final": 21482,
-      "traced_peak": 1947076,
-      "workload": "sqlite_rows"
+      "traced_cur": 1126371,
+      "traced_final": 1126499,
+      "traced_peak": 5105275,
+      "workload": "stdlib_compile"
+    },
+    {
+      "gc_collections": 26,
+      "mode": "control",
+      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+      "python": "3.12.3",
+      "rss_before": 14770176,
+      "rss_final_delta": 5427200,
+      "rss_peak_delta": 5763072,
+      "scale": 1.0,
+      "traced_cur": null,
+      "traced_final": null,
+      "traced_peak": null,
+      "workload": "stdlib_compile"
+    },
+    {
+      "gc_collections": 26,
+      "mode": "traced",
+      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+      "python": "3.12.3",
+      "rss_before": 14770176,
+      "rss_final_delta": 8531968,
+      "rss_peak_delta": 8531968,
+      "scale": 1.0,
+      "traced_cur": 1126371,
+      "traced_final": 1126499,
+      "traced_peak": 5105275,
+      "workload": "stdlib_compile"
+    },
+    {
+      "gc_collections": 26,
+      "mode": "control",
+      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+      "python": "3.12.3",
+      "rss_before": 14770176,
+      "rss_final_delta": 5427200,
+      "rss_peak_delta": 5787648,
+      "scale": 1.0,
+      "traced_cur": null,
+      "traced_final": null,
+      "traced_peak": null,
+      "workload": "stdlib_compile"
+    },
+    {
+      "gc_collections": 26,
+      "mode": "traced",
+      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+      "python": "3.12.3",
+      "rss_before": 14798848,
+      "rss_final_delta": 8531968,
+      "rss_peak_delta": 8531968,
+      "scale": 1.0,
+      "traced_cur": 1126371,
+      "traced_final": 1126499,
+      "traced_peak": 5105275,
+      "workload": "stdlib_compile"
     },
     {
       "gc_collections": 23,
@@ -695,35 +863,7 @@
       "mode": "traced",
       "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
       "python": "3.12.3",
-      "rss_before": 14757888,
-      "rss_final_delta": 434176,
-      "rss_peak_delta": 434176,
-      "scale": 1.0,
-      "traced_cur": 33720698,
-      "traced_final": 33720826,
-      "traced_peak": 34204472,
-      "workload": "zlib_zeros"
-    },
-    {
-      "gc_collections": 22,
-      "mode": "control",
-      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
-      "python": "3.12.3",
-      "rss_before": 14753792,
-      "rss_final_delta": 430080,
-      "rss_peak_delta": 430080,
-      "scale": 1.0,
-      "traced_cur": null,
-      "traced_final": null,
-      "traced_peak": null,
-      "workload": "zlib_zeros"
-    },
-    {
-      "gc_collections": 22,
-      "mode": "traced",
-      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
-      "python": "3.12.3",
-      "rss_before": 14757888,
+      "rss_before": 14737408,
       "rss_final_delta": 434176,
       "rss_peak_delta": 434176,
       "scale": 1.0,
@@ -751,9 +891,37 @@
       "mode": "traced",
       "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
       "python": "3.12.3",
-      "rss_before": 14839808,
-      "rss_final_delta": 454656,
-      "rss_peak_delta": 454656,
+      "rss_before": 14790656,
+      "rss_final_delta": 434176,
+      "rss_peak_delta": 434176,
+      "scale": 1.0,
+      "traced_cur": 33720698,
+      "traced_final": 33720826,
+      "traced_peak": 34204472,
+      "workload": "zlib_zeros"
+    },
+    {
+      "gc_collections": 22,
+      "mode": "control",
+      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+      "python": "3.12.3",
+      "rss_before": 14782464,
+      "rss_final_delta": 425984,
+      "rss_peak_delta": 425984,
+      "scale": 1.0,
+      "traced_cur": null,
+      "traced_final": null,
+      "traced_peak": null,
+      "workload": "zlib_zeros"
+    },
+    {
+      "gc_collections": 22,
+      "mode": "traced",
+      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+      "python": "3.12.3",
+      "rss_before": 14745600,
+      "rss_final_delta": 434176,
+      "rss_peak_delta": 434176,
       "scale": 1.0,
       "traced_cur": 33720698,
       "traced_final": 33720826,
@@ -810,13 +978,13 @@
       "control": {
         "mode": "control",
         "rss_final_delta": {
-          "median": 1634304.0,
-          "p25": 1570816.0,
-          "p75": 1646592.0
+          "median": 1736704.0,
+          "p25": 1703936.0,
+          "p75": 1738752.0
         },
         "rss_peak_delta": {
-          "median": 46714880.0,
-          "p25": 46714880.0,
+          "median": 46718976.0,
+          "p25": 46694400.0,
           "p75": 46733312.0
         },
         "runs": 3,
@@ -826,25 +994,25 @@
       "traced": {
         "mode": "traced",
         "rss_final_delta": {
-          "median": 51134464.0,
-          "p25": 51113984.0,
-          "p75": 51161088.0
+          "median": 51122176.0,
+          "p25": 51105792.0,
+          "p75": 51154944.0
         },
         "rss_peak_delta": {
-          "median": 111329280.0,
-          "p25": 111300608.0,
-          "p75": 111366144.0
+          "median": 111403008.0,
+          "p25": 111347712.0,
+          "p75": 111405056.0
         },
         "runs": 3,
         "traced_cur": {
           "median": 19798.0,
           "p25": 19798.0,
-          "p75": 19816.0
+          "p75": 19798.0
         },
         "traced_peak": {
           "median": 44835856.0,
           "p25": 44835856.0,
-          "p75": 44835874.0
+          "p75": 44835856.0
         }
       }
     },
@@ -852,14 +1020,14 @@
       "control": {
         "mode": "control",
         "rss_final_delta": {
-          "median": 22052864.0,
-          "p25": 21989376.0,
-          "p75": 22052864.0
+          "median": 21995520.0,
+          "p25": 21977088.0,
+          "p75": 22026240.0
         },
         "rss_peak_delta": {
-          "median": 37568512.0,
-          "p25": 37556224.0,
-          "p75": 37570560.0
+          "median": 37543936.0,
+          "p25": 37543936.0,
+          "p75": 37560320.0
         },
         "runs": 3,
         "traced_cur": null,
@@ -868,14 +1036,14 @@
       "traced": {
         "mode": "traced",
         "rss_final_delta": {
-          "median": 64266240.0,
-          "p25": 64266240.0,
-          "p75": 64284672.0
+          "median": 64331776.0,
+          "p25": 64315392.0,
+          "p75": 64339968.0
         },
         "rss_peak_delta": {
           "median": 79450112.0,
-          "p25": 79446016.0,
-          "p75": 79466496.0
+          "p25": 79411200.0,
+          "p75": 79456256.0
         },
         "runs": 3,
         "traced_cur": {
@@ -894,14 +1062,14 @@
       "control": {
         "mode": "control",
         "rss_final_delta": {
-          "median": 33566720.0,
-          "p25": 33562624.0,
-          "p75": 33566720.0
+          "median": 33562624.0,
+          "p25": 33560576.0,
+          "p75": 33564672.0
         },
         "rss_peak_delta": {
-          "median": 67014656.0,
-          "p25": 67008512.0,
-          "p75": 67024896.0
+          "median": 66994176.0,
+          "p25": 66971648.0,
+          "p75": 66998272.0
         },
         "runs": 3,
         "traced_cur": null,
@@ -916,8 +1084,8 @@
         },
         "rss_peak_delta": {
           "median": 66994176.0,
-          "p25": 66951168.0,
-          "p75": 67006464.0
+          "p25": 66994176.0,
+          "p75": 66996224.0
         },
         "runs": 3,
         "traced_cur": {
@@ -929,6 +1097,48 @@
           "median": 33575889.0,
           "p25": 33575889.0,
           "p75": 33575889.0
+        }
+      }
+    },
+    "numpy_touched": {
+      "control": {
+        "mode": "control",
+        "rss_final_delta": {
+          "median": 67112960.0,
+          "p25": 67112960.0,
+          "p75": 67112960.0
+        },
+        "rss_peak_delta": {
+          "median": 67112960.0,
+          "p25": 67112960.0,
+          "p75": 67112960.0
+        },
+        "runs": 3,
+        "traced_cur": null,
+        "traced_peak": null
+      },
+      "traced": {
+        "mode": "traced",
+        "rss_final_delta": {
+          "median": 67117056.0,
+          "p25": 67117056.0,
+          "p75": 67117056.0
+        },
+        "rss_peak_delta": {
+          "median": 67117056.0,
+          "p25": 67117056.0,
+          "p75": 67117056.0
+        },
+        "runs": 3,
+        "traced_cur": {
+          "median": 67128730.0,
+          "p25": 67128730.0,
+          "p75": 67128730.0
+        },
+        "traced_peak": {
+          "median": 67140694.0,
+          "p25": 67140694.0,
+          "p75": 67140694.0
         }
       }
     },
@@ -964,12 +1174,12 @@
         "runs": 3,
         "traced_cur": {
           "median": 67128730.0,
-          "p25": 67128707.5,
+          "p25": 67128730.0,
           "p75": 67128730.0
         },
         "traced_peak": {
           "median": 67140694.0,
-          "p25": 67140671.5,
+          "p25": 67140694.0,
           "p75": 67140694.0
         }
       }
@@ -980,12 +1190,12 @@
         "rss_final_delta": {
           "median": 44331008.0,
           "p25": 44328960.0,
-          "p75": 44333056.0
+          "p75": 44331008.0
         },
         "rss_peak_delta": {
-          "median": 45285376.0,
-          "p25": 45283328.0,
-          "p75": 45312000.0
+          "median": 45281280.0,
+          "p25": 45234176.0,
+          "p75": 45305856.0
         },
         "runs": 3,
         "traced_cur": null,
@@ -999,9 +1209,9 @@
           "p75": 124688384.0
         },
         "rss_peak_delta": {
-          "median": 125640704.0,
-          "p25": 125638656.0,
-          "p75": 125652992.0
+          "median": 125652992.0,
+          "p25": 125630464.0,
+          "p75": 125659136.0
         },
         "runs": 3,
         "traced_cur": {
@@ -1021,12 +1231,12 @@
         "mode": "control",
         "rss_final_delta": {
           "median": 46784512.0,
-          "p25": 46784512.0,
+          "p25": 46782464.0,
           "p75": 46784512.0
         },
         "rss_peak_delta": {
           "median": 46784512.0,
-          "p25": 46784512.0,
+          "p25": 46780416.0,
           "p75": 46784512.0
         },
         "runs": 3,
@@ -1062,14 +1272,14 @@
       "control": {
         "mode": "control",
         "rss_final_delta": {
-          "median": 3784704.0,
-          "p25": 3782656.0,
-          "p75": 3790848.0
+          "median": 3813376.0,
+          "p25": 3799040.0,
+          "p75": 3848192.0
         },
         "rss_peak_delta": {
-          "median": 3784704.0,
-          "p25": 3782656.0,
-          "p75": 3790848.0
+          "median": 3813376.0,
+          "p25": 3799040.0,
+          "p75": 3848192.0
         },
         "runs": 3,
         "traced_cur": null,
@@ -1078,25 +1288,67 @@
       "traced": {
         "mode": "traced",
         "rss_final_delta": {
-          "median": 6983680.0,
-          "p25": 6981632.0,
-          "p75": 6991872.0
+          "median": 6979584.0,
+          "p25": 6975488.0,
+          "p75": 6981632.0
         },
         "rss_peak_delta": {
-          "median": 7901184.0,
-          "p25": 7892992.0,
-          "p75": 7938048.0
+          "median": 7974912.0,
+          "p25": 7946240.0,
+          "p75": 7983104.0
         },
         "runs": 3,
         "traced_cur": {
           "median": 21354.0,
-          "p25": 21354.0,
+          "p25": 21331.5,
           "p75": 21354.0
         },
         "traced_peak": {
           "median": 1947076.0,
-          "p25": 1947076.0,
+          "p25": 1947053.5,
           "p75": 1947076.0
+        }
+      }
+    },
+    "stdlib_compile": {
+      "control": {
+        "mode": "control",
+        "rss_final_delta": {
+          "median": 5427200.0,
+          "p25": 5427200.0,
+          "p75": 5435392.0
+        },
+        "rss_peak_delta": {
+          "median": 5779456.0,
+          "p25": 5771264.0,
+          "p75": 5783552.0
+        },
+        "runs": 3,
+        "traced_cur": null,
+        "traced_peak": null
+      },
+      "traced": {
+        "mode": "traced",
+        "rss_final_delta": {
+          "median": 8531968.0,
+          "p25": 8531968.0,
+          "p75": 8540160.0
+        },
+        "rss_peak_delta": {
+          "median": 8531968.0,
+          "p25": 8531968.0,
+          "p75": 8540160.0
+        },
+        "runs": 3,
+        "traced_cur": {
+          "median": 1126371.0,
+          "p25": 1126371.0,
+          "p75": 1126371.0
+        },
+        "traced_peak": {
+          "median": 5105275.0,
+          "p25": 5105275.0,
+          "p75": 5105275.0
         }
       }
     },
@@ -1104,14 +1356,14 @@
       "control": {
         "mode": "control",
         "rss_final_delta": {
-          "median": 430080.0,
-          "p25": 428032.0,
-          "p75": 430080.0
+          "median": 425984.0,
+          "p25": 425984.0,
+          "p75": 428032.0
         },
         "rss_peak_delta": {
-          "median": 430080.0,
-          "p25": 428032.0,
-          "p75": 430080.0
+          "median": 425984.0,
+          "p25": 425984.0,
+          "p75": 428032.0
         },
         "runs": 3,
         "traced_cur": null,
@@ -1122,12 +1374,12 @@
         "rss_final_delta": {
           "median": 434176.0,
           "p25": 434176.0,
-          "p75": 444416.0
+          "p75": 434176.0
         },
         "rss_peak_delta": {
           "median": 434176.0,
           "p25": 434176.0,
-          "p75": 444416.0
+          "p75": 434176.0
         },
         "runs": 3,
         "traced_cur": {
@@ -1166,67 +1418,88 @@
       "workload": "bytes_1k"
     },
     {
-      "retained_control": 1634304.0,
-      "rss_control": 46714880.0,
-      "rss_control_p25": 46714880.0,
+      "retained_control": 1736704.0,
+      "rss_control": 46718976.0,
+      "rss_control_p25": 46694400.0,
       "rss_control_p75": 46733312.0,
-      "rss_traced": 111329280.0,
-      "rss_traced_p25": 111300608.0,
-      "rss_traced_p75": 111366144.0,
+      "rss_traced": 111403008.0,
+      "rss_traced_p25": 111347712.0,
+      "rss_traced_p75": 111405056.0,
       "traced_p25": 44835856.0,
-      "traced_p75": 44835874.0,
+      "traced_p75": 44835856.0,
       "traced_peak": 44835856.0,
       "verdict": {
         "agreement": "agree",
-        "instrument_cost_bytes": 64614400.0,
-        "retained_fraction": 0.035,
-        "rss_traced_to_control": 2.3832,
-        "traced_to_rss": 0.9598,
-        "warning": "tracing itself added 61.6 MiB (peak RSS x2.38)"
+        "instrument_cost_bytes": 64684032.0,
+        "retained_fraction": 0.0372,
+        "rss_traced_to_control": 2.3845,
+        "traced_to_rss": 0.9597,
+        "warning": "tracing itself added 61.7 MiB (peak RSS x2.38)"
       },
       "workload": "churn_free"
     },
     {
-      "retained_control": 22052864.0,
-      "rss_control": 37568512.0,
-      "rss_control_p25": 37556224.0,
-      "rss_control_p75": 37570560.0,
+      "retained_control": 21995520.0,
+      "rss_control": 37543936.0,
+      "rss_control_p25": 37543936.0,
+      "rss_control_p75": 37560320.0,
       "rss_traced": 79450112.0,
-      "rss_traced_p25": 79446016.0,
-      "rss_traced_p75": 79466496.0,
+      "rss_traced_p25": 79411200.0,
+      "rss_traced_p75": 79456256.0,
       "traced_p25": 35314765.0,
       "traced_p75": 35314765.0,
       "traced_peak": 35314765.0,
       "verdict": {
         "agreement": "agree",
-        "instrument_cost_bytes": 41881600.0,
-        "retained_fraction": 0.587,
-        "rss_traced_to_control": 2.1148,
-        "traced_to_rss": 0.94,
-        "warning": "tracing itself added 39.9 MiB (peak RSS x2.11)"
+        "instrument_cost_bytes": 41906176.0,
+        "retained_fraction": 0.5859,
+        "rss_traced_to_control": 2.1162,
+        "traced_to_rss": 0.9406,
+        "warning": "tracing itself added 40.0 MiB (peak RSS x2.12)"
       },
       "workload": "json_roundtrip"
     },
     {
-      "retained_control": 33566720.0,
-      "rss_control": 67014656.0,
-      "rss_control_p25": 67008512.0,
-      "rss_control_p75": 67024896.0,
+      "retained_control": 33562624.0,
+      "rss_control": 66994176.0,
+      "rss_control_p25": 66971648.0,
+      "rss_control_p75": 66998272.0,
       "rss_traced": 66994176.0,
-      "rss_traced_p25": 66951168.0,
-      "rss_traced_p75": 67006464.0,
+      "rss_traced_p25": 66994176.0,
+      "rss_traced_p75": 66996224.0,
       "traced_p25": 33575889.0,
       "traced_p75": 33575889.0,
       "traced_peak": 33575889.0,
       "verdict": {
         "agreement": "under-report",
-        "instrument_cost_bytes": -20480.0,
-        "retained_fraction": 0.5009,
-        "rss_traced_to_control": 0.9997,
-        "traced_to_rss": 0.501,
+        "instrument_cost_bytes": 0.0,
+        "retained_fraction": 0.501,
+        "rss_traced_to_control": 1.0,
+        "traced_to_rss": 0.5012,
         "warning": null
       },
       "workload": "mmap_pages"
+    },
+    {
+      "retained_control": 67112960.0,
+      "rss_control": 67112960.0,
+      "rss_control_p25": 67112960.0,
+      "rss_control_p75": 67112960.0,
+      "rss_traced": 67117056.0,
+      "rss_traced_p25": 67117056.0,
+      "rss_traced_p75": 67117056.0,
+      "traced_p25": 67140694.0,
+      "traced_p75": 67140694.0,
+      "traced_peak": 67140694.0,
+      "verdict": {
+        "agreement": "agree",
+        "instrument_cost_bytes": 4096.0,
+        "retained_fraction": 1.0,
+        "rss_traced_to_control": 1.0001,
+        "traced_to_rss": 1.0004,
+        "warning": null
+      },
+      "workload": "numpy_touched"
     },
     {
       "retained_control": 4096.0,
@@ -1236,7 +1509,7 @@
       "rss_traced": 8192.0,
       "rss_traced_p25": 8192.0,
       "rss_traced_p75": 8192.0,
-      "traced_p25": 67140671.5,
+      "traced_p25": 67140694.0,
       "traced_p75": 67140694.0,
       "traced_peak": 67140694.0,
       "verdict": {
@@ -1251,21 +1524,21 @@
     },
     {
       "retained_control": 44331008.0,
-      "rss_control": 45285376.0,
-      "rss_control_p25": 45283328.0,
-      "rss_control_p75": 45312000.0,
-      "rss_traced": 125640704.0,
-      "rss_traced_p25": 125638656.0,
-      "rss_traced_p75": 125652992.0,
+      "rss_control": 45281280.0,
+      "rss_control_p25": 45234176.0,
+      "rss_control_p75": 45305856.0,
+      "rss_traced": 125652992.0,
+      "rss_traced_p25": 125630464.0,
+      "rss_traced_p75": 125659136.0,
       "traced_p25": 40607627.0,
       "traced_p75": 40607627.0,
       "traced_peak": 40607627.0,
       "verdict": {
         "agreement": "agree",
-        "instrument_cost_bytes": 80355328.0,
-        "retained_fraction": 0.9789,
-        "rss_traced_to_control": 2.7744,
-        "traced_to_rss": 0.8967,
+        "instrument_cost_bytes": 80371712.0,
+        "retained_fraction": 0.979,
+        "rss_traced_to_control": 2.7749,
+        "traced_to_rss": 0.8968,
         "warning": "tracing itself added 76.6 MiB (peak RSS x2.77)"
       },
       "workload": "regex_findall"
@@ -1273,7 +1546,7 @@
     {
       "retained_control": 46784512.0,
       "rss_control": 46784512.0,
-      "rss_control_p25": 46784512.0,
+      "rss_control_p25": 46780416.0,
       "rss_control_p75": 46784512.0,
       "rss_traced": 111407104.0,
       "rss_traced_p25": 111407104.0,
@@ -1292,43 +1565,64 @@
       "workload": "small_objects"
     },
     {
-      "retained_control": 3784704.0,
-      "rss_control": 3784704.0,
-      "rss_control_p25": 3782656.0,
-      "rss_control_p75": 3790848.0,
-      "rss_traced": 7901184.0,
-      "rss_traced_p25": 7892992.0,
-      "rss_traced_p75": 7938048.0,
-      "traced_p25": 1947076.0,
+      "retained_control": 3813376.0,
+      "rss_control": 3813376.0,
+      "rss_control_p25": 3799040.0,
+      "rss_control_p75": 3848192.0,
+      "rss_traced": 7974912.0,
+      "rss_traced_p25": 7946240.0,
+      "rss_traced_p75": 7983104.0,
+      "traced_p25": 1947053.5,
       "traced_p75": 1947076.0,
       "traced_peak": 1947076.0,
       "verdict": {
         "agreement": "under-report",
-        "instrument_cost_bytes": 4116480.0,
+        "instrument_cost_bytes": 4161536.0,
         "retained_fraction": 1.0,
-        "rss_traced_to_control": 2.0877,
-        "traced_to_rss": 0.5145,
-        "warning": "tracing itself added 3.9 MiB (peak RSS x2.09)"
+        "rss_traced_to_control": 2.0913,
+        "traced_to_rss": 0.5106,
+        "warning": "tracing itself added 4.0 MiB (peak RSS x2.09)"
       },
       "workload": "sqlite_rows"
     },
     {
-      "retained_control": 430080.0,
-      "rss_control": 430080.0,
-      "rss_control_p25": 428032.0,
-      "rss_control_p75": 430080.0,
+      "retained_control": 5427200.0,
+      "rss_control": 5779456.0,
+      "rss_control_p25": 5771264.0,
+      "rss_control_p75": 5783552.0,
+      "rss_traced": 8531968.0,
+      "rss_traced_p25": 8531968.0,
+      "rss_traced_p75": 8540160.0,
+      "traced_p25": 5105275.0,
+      "traced_p75": 5105275.0,
+      "traced_peak": 5105275.0,
+      "verdict": {
+        "agreement": "agree",
+        "instrument_cost_bytes": 2752512.0,
+        "retained_fraction": 0.9391,
+        "rss_traced_to_control": 1.4763,
+        "traced_to_rss": 0.8833,
+        "warning": "tracing itself added 2.6 MiB (peak RSS x1.48)"
+      },
+      "workload": "stdlib_compile"
+    },
+    {
+      "retained_control": 425984.0,
+      "rss_control": 425984.0,
+      "rss_control_p25": 425984.0,
+      "rss_control_p75": 428032.0,
       "rss_traced": 434176.0,
       "rss_traced_p25": 434176.0,
-      "rss_traced_p75": 444416.0,
+      "rss_traced_p75": 434176.0,
       "traced_p25": 34204472.0,
       "traced_p75": 34204472.0,
       "traced_peak": 34204472.0,
       "verdict": {
         "agreement": "over-report",
-        "instrument_cost_bytes": 4096.0,
+        "instrument_cost_bytes": 8192.0,
         "retained_fraction": 1.0,
-        "rss_traced_to_control": 1.0095,
-        "traced_to_rss": 79.5305,
+        "rss_traced_to_control": 1.0192,
+        "traced_to_rss": 80.2952,
         "warning": null
       },
       "workload": "zlib_zeros"
