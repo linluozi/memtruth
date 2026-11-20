@@ -1,6 +1,6 @@
 # memtruth
 
-`tracemalloc` 报的是「Python 分配器被请求了多少字节」，`/proc` 里的 RSS 报的是「内核真正驻留了多少页」。这两个数在真实代码里可以差出两个数量级，而多数内存结论只引用前者。`memtruth` 把三件事放进同一次隔离测量：traced 峰值、**关闭 profiling** 时的 RSS 峰值、**开启 profiling** 时的 RSS 峰值，并对每条分配路径判定「谁偏了、偏多少」。
+`tracemalloc` 报的是「Python 分配器被请求了多少字节」，`/proc` 里的 RSS 报的是「内核真正驻留了多少页」。这两个数在真实代码里可以差出一个数量级以上，而多数内存结论只引用前者。`memtruth` 把三件事放进同一次隔离测量：traced 峰值、**关闭 profiling** 时的 RSS 峰值、**开启 profiling** 时的 RSS 峰值，并对每条分配路径判定「谁偏了、偏多少」。
 
 Upstream: none
 
@@ -8,9 +8,9 @@ Upstream: none
 
 ## 1 · 它回答什么问题
 
-- 我引用的 `tracemalloc` 峰值，能当成进程内存成本吗？（11 条路径里 7 条能；2 条低估到 0.50x/0.51x；2 条 RSS 低于噪声地板而 traced 报了 32–64 MiB）
+- 我引用的 `tracemalloc` 峰值，能当成进程内存成本吗？（11 条路径里 7 条能；2 条低估到 0.50x；2 条 RSS 低于噪声地板而 traced 报了 32–64 MiB）
 - 打开 `tracemalloc` 本身会让进程多占多少？（本机实测最多 **+76.6 MiB，峰值 RSS ×2.77**）
-- 我把对象全释放了，RSS 会还回来吗？（取决于负载：3.7% 到 100% 都实测到了）
+- 我把对象全释放了，RSS 会还回来吗？（取决于负载：3.3% 到 100% 都实测到了）
 - 我的内存测试台本身可信吗？（`memtruth gate` 直接对测试台判不合格：本仓 11 条负载里 6 条在 ×1.25 门槛下不合格，2 条因 RSS 低于噪声地板不参与比值）
 
 ## 2 · 实测（本机真实输出，`benchmark/calibration.json`）
@@ -28,8 +28,8 @@ Upstream: none
 | `numpy_touched` 64 MiB 全页写入 | 64.0 MiB | 64.0 MiB | 64.0 MiB | 1.00x | agree | 100% |
 | `mmap_pages` 32 MiB 匿名映射 | 32.0 MiB | 63.9 MiB | 63.9 MiB | 0.50x | under-report | 50% |
 | `sqlite_rows` 20k 行内存表 | 1.8 MiB | 3.7 MiB | 7.6 MiB | 0.50x | under-report | 100% |
-| `numpy_zeros` 64 MiB 未写入 | 64.0 MiB | 0.0 MiB | 0.0 MiB | **≥64x** | rss-below-noise-floor | 100% |
-| `zlib_zeros` 压缩 32 MiB 零字节 | 32.6 MiB | 0.4 MiB | 0.4 MiB | **≥33x** | rss-below-noise-floor | 100% |
+| `numpy_zeros` 64 MiB 未写入 | 64.0 MiB | 0.0 MiB | 0.0 MiB | **≥64x** | rss-below-noise-floor | n/a |
+| `zlib_zeros` 压缩 32 MiB 零字节 | 32.6 MiB | 0.4 MiB | 0.4 MiB | **≥33x** | rss-below-noise-floor | n/a |
 
 三次重复的最大相对标准差为 **6.41%**（`churn_free/control/rss_final_delta`），其余字段 RSD 均 < 5%。该 6.41% 来自 `churn_free` 释放后 RSS 的归还时机（三次分别为 3.68/3.26/3.61%），低于任务书要求的 10% 警戒线；噪声主要来自 RSS 的 4 KiB 页粒度与 arena 回收策略（逐字段 RSD 见 `benchmark/calibration.json` 的 `summary`）。
 
@@ -41,10 +41,10 @@ Upstream: none
 
 ## 3 · 可证伪对照与测试
 
-**写页对照（机制验证，不是相关性）**：`numpy_zeros` 与 `numpy_touched` 同库、同大小、同 `np.zeros` 调用，唯一差别是后者 `arr.fill(1.0)` 写了每一页。traced 峰值两次都是 **64.0 MiB（差 <0.01%）**，RSS 峰值从 **0.0 MiB 变成 64.0 MiB**，判定从「RSS 低于噪声地板（≥64x）」翻到 agree(1.00x)。这条对照被 `test_write_pattern_flips_verdict` 机器化：改回不写，结论必然回来。
+**写页对照（机制验证，不是相关性）**：`numpy_zeros` 与 `numpy_touched` 同库、同大小、同 `np.zeros` 调用，唯一差别是后者 `arr.fill(1.0)` 写了每一页。traced 峰值两次完全相同（**67,109,024 B**，三次重复均一致），RSS 峰值从 **0.0 MiB 变成 64.0 MiB**，判定从「RSS 低于噪声地板（≥64x）」翻到 agree(1.00x)。这条对照被 `test_write_pattern_flips_verdict` 机器化：改回不写，结论必然回来。
 
 - `PYTHONPATH=. python3 -m unittest discover -s tests -v` → **38 tests OK**。覆盖：RSD 与噪声地板、/proc 解析与畸形行、判定边界（1.49/1.50、0.70/0.71）、1 MiB 噪声地板与下界、instrument 成本双条件告警、p25/p50/p75、CLI 的 raw/聚合落盘、脚本审计、traced 字节跨进程确定性、写页翻转判定、gate 的三条拒绝路径、README 表格与 calibration.json 逐格一致、注册表不误 import numpy。
-- 确定性：`small_objects` 在 scale=0.002 下连续两次独立子进程的 `traced_peak` **逐字节相等**（`test_traced_bytes_are_deterministic`）。
+- 确定性：`small_objects` 在 scale=0.002 下连续 5 次独立子进程的 `traced_peak` **逐字节相等**（`test_traced_bytes_are_deterministic`）。
 - 所有负载无随机数、无网络、无 sleep；`stdlib_compile` 读本机 CPython 自带真实源码（每 3 个 `.py` 取 1 个）。
 - 本机只有 CPython 3.12.3（`/usr/bin/python3.12`），**无 3.10/3.11，无法交叉**；本文不声称跨版本结论。
 
@@ -62,7 +62,7 @@ FAIL churn_free       profiler inflates peak RSS x2.38 > x1.25
 FAIL json_roundtrip   profiler inflates peak RSS x2.12 > x1.25
 FAIL regex_findall    profiler inflates peak RSS x2.77 > x1.25
 FAIL small_objects    profiler inflates peak RSS x2.38 > x1.25
-FAIL sqlite_rows      profiler inflates peak RSS x2.10 > x1.25
+FAIL sqlite_rows      profiler inflates peak RSS x2.06 > x1.25
 FAIL stdlib_compile   profiler inflates peak RSS x1.49 > x1.25
 6 workload(s) failed the memory-instrument gate   (exit=1)
 ```
