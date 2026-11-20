@@ -90,7 +90,7 @@ def to_markdown(table):
     ]
     for row in table:
         v = row["verdict"]
-        if v["agreement"] == "rss-below-noise-floor":
+        if v["agreement"] == "rss-below-noise-floor" and v.get("lower_bound_ratio"):
             ratio = ">=%.0fx" % v["lower_bound_ratio"]
         else:
             ratio = "n/a" if v["traced_to_rss"] is None else "%.2fx" % v["traced_to_rss"]

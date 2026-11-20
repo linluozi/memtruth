@@ -34,6 +34,22 @@ def classify(traced_peak, rss_peak_control, rss_peak_traced,
             "warning": None,
         }
 
+    if rss_peak_control < NOISE_FLOOR and traced_peak < NOISE_FLOOR:
+        return {
+            "agreement": "below-noise-floor",
+            "traced_to_rss": None,
+            "lower_bound_ratio": None,
+            "rss_traced_to_control": (
+                round(rss_peak_traced / rss_peak_control, 4)
+                if rss_peak_traced is not None else None),
+            "instrument_cost_bytes": (
+                rss_peak_traced - rss_peak_control
+                if rss_peak_traced is not None else None),
+            "warning": None,
+            "retained_fraction": None,
+            "noise_floor_bytes": NOISE_FLOOR,
+        }
+
     if rss_peak_control < NOISE_FLOOR:
         # Dividing 64 MiB of traced bytes by a 4 KiB RSS delta produces a
         # spectacular but meaningless multiplier.  Report a lower bound
@@ -90,5 +106,6 @@ def headline(agreement):
         "under-report": "memory lives outside Python's traced allocators",
         "agree": "traced bytes track resident growth within 0.7-1.5x",
         "rss-below-noise-floor": "RSS growth is under 1 MiB: only a lower bound is meaningful",
+        "below-noise-floor": "both traced bytes and RSS growth are under 1 MiB",
         "untraced": "no tracing was active",
     }[agreement]

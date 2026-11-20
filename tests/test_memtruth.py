@@ -74,6 +74,11 @@ class VerdictTests(unittest.TestCase):
         small = verdict.classify(100, 100, 120)  # 20% but under 1 MiB
         self.assertIsNone(small["warning"])
 
+    def test_both_sides_under_floor_gives_no_ratio(self):
+        v = verdict.classify(200_000, 4096, 4096)
+        self.assertEqual(v["agreement"], "below-noise-floor")
+        self.assertIsNone(v["lower_bound_ratio"])
+
     def test_untraced(self):
         v = verdict.classify(None, 100, None)
         self.assertEqual(v["agreement"], "untraced")
