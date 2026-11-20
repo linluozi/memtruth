@@ -1,0 +1,14 @@
+{
+  "gc_collections": 307,
+  "mode": "traced",
+  "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+  "python": "3.12.3",
+  "rss_before": 14704640,
+  "rss_final_delta": 51093504,
+  "rss_peak_delta": 111329280,
+  "scale": 1.0,
+  "traced_cur": 19834,
+  "traced_final": 19962,
+  "traced_peak": 44835892,
+  "workload": "churn_free"
+}
