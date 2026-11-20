@@ -12,6 +12,7 @@ OVER_REPORT = 1.5     # traced >= 1.5x resident growth
 UNDER_REPORT = 0.7    # traced <= 0.7x resident growth
 DISTORTION = 1.10     # tracing inflates RSS by >= 10%
 MIN_BYTES = 1 << 20   # ignore sub-megabyte noise when flagging distortion
+NOISE_FLOOR = 1 << 20 # below 1 MiB, an RSS delta is not a usable denominator
 
 
 def classify(traced_peak, rss_peak_control, rss_peak_traced,
@@ -31,6 +32,25 @@ def classify(traced_peak, rss_peak_control, rss_peak_traced,
             "rss_traced_to_control": None,
             "instrument_cost_bytes": None,
             "warning": None,
+        }
+
+    if rss_peak_control < NOISE_FLOOR:
+        # Dividing 64 MiB of traced bytes by a 4 KiB RSS delta produces a
+        # spectacular but meaningless multiplier.  Report a lower bound
+        # against the noise floor instead, and never the raw quotient.
+        return {
+            "agreement": "rss-below-noise-floor",
+            "traced_to_rss": None,
+            "lower_bound_ratio": round(traced_peak / NOISE_FLOOR, 4),
+            "rss_traced_to_control": (
+                round(rss_peak_traced / rss_peak_control, 4)
+                if rss_peak_traced is not None else None),
+            "instrument_cost_bytes": (
+                rss_peak_traced - rss_peak_control
+                if rss_peak_traced is not None else None),
+            "warning": None,
+            "retained_fraction": None,
+            "noise_floor_bytes": NOISE_FLOOR,
         }
 
     ratio = traced_peak / rss_peak_control
@@ -69,5 +89,6 @@ def headline(agreement):
         "over-report": "tracemalloc counts bytes the OS never made resident",
         "under-report": "memory lives outside Python's traced allocators",
         "agree": "traced bytes track resident growth within 0.7-1.5x",
+        "rss-below-noise-floor": "RSS growth is under 1 MiB: only a lower bound is meaningful",
         "untraced": "no tracing was active",
     }[agreement]

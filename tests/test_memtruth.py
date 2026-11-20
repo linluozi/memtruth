@@ -40,18 +40,30 @@ class ProcTests(unittest.TestCase):
 
 
 class VerdictTests(unittest.TestCase):
+    MIB = 1 << 20
+
     def test_agree_band(self):
-        self.assertEqual(verdict.classify(100, 100, 100)["agreement"], "agree")
-        self.assertEqual(verdict.classify(149, 100, 149)["agreement"], "agree")
-        self.assertEqual(verdict.classify(71, 100, 71)["agreement"], "agree")
+        m = self.MIB
+        self.assertEqual(verdict.classify(100*m, 100*m, 100*m)["agreement"], "agree")
+        self.assertEqual(verdict.classify(149*m, 100*m, 149*m)["agreement"], "agree")
+        self.assertEqual(verdict.classify(71*m, 100*m, 71*m)["agreement"], "agree")
 
     def test_over_report_boundary(self):
-        self.assertEqual(verdict.classify(150, 100, 150)["agreement"], "over-report")
-        self.assertEqual(verdict.classify(4200, 100, 4200)["agreement"], "over-report")
+        m = self.MIB
+        self.assertEqual(verdict.classify(150*m, 100*m, 150*m)["agreement"], "over-report")
+        self.assertEqual(verdict.classify(4200*m, 100*m, 4200*m)["agreement"], "over-report")
 
     def test_under_report_boundary(self):
-        self.assertEqual(verdict.classify(70, 100, 70)["agreement"], "under-report")
-        self.assertEqual(verdict.classify(45, 100, 90)["agreement"], "under-report")
+        m = self.MIB
+        self.assertEqual(verdict.classify(70*m, 100*m, 70*m)["agreement"], "under-report")
+        self.assertEqual(verdict.classify(45*m, 100*m, 90*m)["agreement"], "under-report")
+
+    def test_tiny_rss_delta_is_not_divided(self):
+        v = verdict.classify(64*self.MIB, 4096, 4096)
+        self.assertEqual(v["agreement"], "rss-below-noise-floor")
+        self.assertIsNone(v["traced_to_rss"])
+        self.assertAlmostEqual(v["lower_bound_ratio"], 64.0)
+        self.assertEqual(v["noise_floor_bytes"], self.MIB)
 
     def test_distortion_warning_needs_both_conditions(self):
         mib = 1 << 20
@@ -72,11 +84,14 @@ class VerdictTests(unittest.TestCase):
             verdict.classify(1, 0, 1)
 
     def test_retained_fraction(self):
-        v = verdict.classify(100, 100, 100, rss_final_control=25)
+        m = self.MIB
+        v = verdict.classify(100*m, 100*m, 100*m, rss_final_control=25*m)
         self.assertAlmostEqual(v["retained_fraction"], 0.25)
 
 
 class ReportTests(unittest.TestCase):
+    MIB = 1 << 20
+
     def test_percentiles(self):
         self.assertEqual(report.percentile([1, 2, 3, 4], 50), 2.5)
         self.assertEqual(report.percentile([1, 2, 3, 4], 25), 1.75)
@@ -90,26 +105,28 @@ class ReportTests(unittest.TestCase):
             report.percentile([1], 101)
 
     def test_summarize_and_rows(self):
+        m = self.MIB
         recs = [
-            {"workload": "w", "mode": "control", "rss_peak_delta": 100,
-             "rss_final_delta": 50, "traced_peak": None, "traced_cur": None},
-            {"workload": "w", "mode": "control", "rss_peak_delta": 300,
-             "rss_final_delta": 50, "traced_peak": None, "traced_cur": None},
-            {"workload": "w", "mode": "traced", "rss_peak_delta": 600,
-             "rss_final_delta": 500, "traced_peak": 210, "traced_cur": 200},
+            {"workload": "w", "mode": "control", "rss_peak_delta": 100*m,
+             "rss_final_delta": 50*m, "traced_peak": None, "traced_cur": None},
+            {"workload": "w", "mode": "control", "rss_peak_delta": 300*m,
+             "rss_final_delta": 50*m, "traced_peak": None, "traced_cur": None},
+            {"workload": "w", "mode": "traced", "rss_peak_delta": 600*m,
+             "rss_final_delta": 500*m, "traced_peak": 210*m, "traced_cur": 200*m},
         ]
         summary = report.summarize(recs)
-        self.assertEqual(summary["w"]["control"]["rss_peak_delta"]["median"], 200.0)
+        self.assertEqual(summary["w"]["control"]["rss_peak_delta"]["median"], 200.0*m)
         table = report.rows(summary)
         self.assertEqual(len(table), 1)
         self.assertEqual(table[0]["verdict"]["agreement"], "agree")  # 210/200
 
     def test_markdown_contains_header_and_name(self):
+        m = self.MIB
         recs = [
-            {"workload": "w", "mode": "control", "rss_peak_delta": 100,
-             "rss_final_delta": 10, "traced_peak": None, "traced_cur": None},
-            {"workload": "w", "mode": "traced", "rss_peak_delta": 110,
-             "rss_final_delta": 10, "traced_peak": 100, "traced_cur": 100},
+            {"workload": "w", "mode": "control", "rss_peak_delta": 100*m,
+             "rss_final_delta": 10*m, "traced_peak": None, "traced_cur": None},
+            {"workload": "w", "mode": "traced", "rss_peak_delta": 110*m,
+             "rss_final_delta": 10*m, "traced_peak": 100*m, "traced_cur": 100*m},
         ]
         md = report.to_markdown(report.rows(report.summarize(recs)))
         self.assertIn("| workload |", md)
@@ -203,6 +220,40 @@ class CliTests(unittest.TestCase):
     def test_list_mentions_every_workload(self):
         for name in workloads.names():
             self.assertIn(name, workloads.names())
+
+    def test_gate_passes_clean_table(self):
+        from memtruth.cli import evaluate_gate
+        table = [{"workload": "a", "rss_control": 40 << 20,
+                  "verdict": {"agreement": "agree", "traced_to_rss": 1.0,
+                              "rss_traced_to_control": 1.02}}]
+        violations, lines = evaluate_gate(table)
+        self.assertEqual(violations, [])
+        self.assertTrue(lines[0].startswith("PASS"))
+
+    def test_gate_flags_profiler_distortion(self):
+        from memtruth.cli import evaluate_gate
+        table = [{"workload": "a", "rss_control": 40 << 20,
+                  "verdict": {"agreement": "agree", "traced_to_rss": 1.0,
+                              "rss_traced_to_control": 2.4}}]
+        violations, _ = evaluate_gate(table, max_instrument_ratio=1.25)
+        self.assertEqual(len(violations), 1)
+        self.assertIn("inflates", violations[0]["reasons"][0])
+
+    def test_gate_strict_flags_under_report(self):
+        from memtruth.cli import evaluate_gate
+        table = [{"workload": "a", "rss_control": 40 << 20,
+                  "verdict": {"agreement": "under-report", "traced_to_rss": 0.5,
+                              "rss_traced_to_control": 1.0}}]
+        self.assertEqual(evaluate_gate(table)[0], [])
+        strict = evaluate_gate(table, strict=True)[0]
+        self.assertEqual(len(strict), 1)
+
+    def test_gate_cli_exit_code(self):
+        with tempfile.TemporaryDirectory() as td:
+            out = Path(td) / "agg.json"
+            cli_main(["run", "numpy_zeros", "bytes_1k", "--repeat", "1", "--scale", "0.02",
+                      "--out", str(out), "--raw", str(Path(td) / "raw")])
+            self.assertEqual(cli_main(["gate", str(out), "--strict"]), 1)
 
     def test_audit_missing_script(self):
         self.assertEqual(cli_main(["audit", "/nonexistent/x.py"]), 2)

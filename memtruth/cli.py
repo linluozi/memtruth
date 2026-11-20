@@ -107,6 +107,51 @@ def cmd_audit(args):
     return 0
 
 
+def evaluate_gate(table, max_instrument_ratio=1.25, strict=False):
+    """Return (violations, lines). Pure function so it is testable offline."""
+    violations, lines = [], []
+    for row in table:
+        name = row["workload"]
+        v = row["verdict"]
+        reasons = []
+        ratio = v.get("rss_traced_to_control")
+        rss_control = row.get("rss_control") or 0
+        if rss_control < verdict.NOISE_FLOOR:
+            ratio = None  # both sides are inside the noise floor
+        if ratio is not None and ratio > max_instrument_ratio:
+            reasons.append("profiler inflates peak RSS x%.2f > x%.2f"
+                           % (ratio, max_instrument_ratio))
+        if strict and v["agreement"] != "agree":
+            reasons.append("verdict is %s, not agree" % v["agreement"])
+        if reasons:
+            violations.append({"workload": name, "reasons": reasons})
+            lines.append("FAIL %-16s %s" % (name, "; ".join(reasons)))
+        else:
+            lines.append("PASS %-16s traced/RSS=%s agreement=%s"
+                         % (name,
+                            "n/a" if v.get("traced_to_rss") is None else "%.2fx" % v["traced_to_rss"],
+                            v["agreement"]))
+    return violations, lines
+
+
+def cmd_gate(args):
+    payload = json.loads(Path(args.path).read_text(encoding="utf-8"))
+    table = payload.get("table") or report.rows(payload["summary"])
+    if args.allow:
+        table = [r for r in table if r["workload"] not in set(args.allow)]
+    violations, lines = evaluate_gate(table, args.max_instrument_ratio, args.strict)
+    for line in lines:
+        print(line)
+    if violations:
+        print("%d workload(s) failed the memory-instrument gate" % len(violations),
+              file=sys.stderr)
+        return 1
+    print("gate passed: %d workload(s) within x%.2f instrument cost%s"
+          % (len(table), args.max_instrument_ratio,
+             ", all verdicts agree" if args.strict else ""))
+    return 0
+
+
 def cmd_report(args):
     payload = json.loads(Path(args.path).read_text(encoding="utf-8"))
     table = payload.get("table") or report.rows(payload["summary"])
@@ -142,6 +187,15 @@ def build_parser():
     p.add_argument("--raw", default=str(DEFAULT_RAW))
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=cmd_audit)
+
+    p = sub.add_parser("gate", help="fail CI when the profiler distorts the harness")
+    p.add_argument("path", help="calibration JSON produced by 'run'")
+    p.add_argument("--max-instrument-ratio", type=float, default=1.25,
+                   help="fail if peak RSS with tracing exceeds this multiple of the untraced peak")
+    p.add_argument("--strict", action="store_true",
+                   help="also fail when a verdict is not 'agree'")
+    p.add_argument("--allow", nargs="*", default=[], help="workloads to ignore")
+    p.set_defaults(func=cmd_gate)
 
     p = sub.add_parser("report", help="render a saved calibration JSON")
     p.add_argument("path")

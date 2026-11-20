@@ -90,7 +90,10 @@ def to_markdown(table):
     ]
     for row in table:
         v = row["verdict"]
-        ratio = "n/a" if v["traced_to_rss"] is None else "%.2fx" % v["traced_to_rss"]
+        if v["agreement"] == "rss-below-noise-floor":
+            ratio = ">=%.0fx" % v["lower_bound_ratio"]
+        else:
+            ratio = "n/a" if v["traced_to_rss"] is None else "%.2fx" % v["traced_to_rss"]
         lines.append("| `%s` | %s MiB | %s MiB | %s MiB | %s | %s |" % (
             row["workload"], mib(row["traced_peak"]), mib(row["rss_control"]),
             mib(row["rss_traced"]), ratio, v["agreement"]))
