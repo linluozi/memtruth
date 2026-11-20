@@ -155,6 +155,27 @@ class ReportTests(unittest.TestCase):
         self.assertIn("`w`", md)
 
 
+class DocsHonestyTests(unittest.TestCase):
+    def test_readme_table_matches_calibration(self):
+        import re
+        calib = json.loads((ROOT / "benchmark" / "calibration.json").read_text())
+        text = (ROOT / "README.md").read_text(encoding="utf-8")
+        rows = {}
+        for line in text.splitlines():
+            m = re.match(r"\| `([a-z0-9_]+)` .*?\| ([\d.]+) MiB \| ([\d.]+) MiB \| ([\d.]+) MiB \|", line)
+            if m:
+                rows[m.group(1)] = tuple(float(x) for x in m.groups()[1:])
+        self.assertEqual(len(rows), len(calib["table"]))
+        for row in calib["table"]:
+            expected = tuple(round(row[k] / 1048576.0, 1)
+                             for k in ("traced_peak", "rss_control", "rss_traced"))
+            self.assertEqual(rows[row["workload"]], expected, row["workload"])
+
+    def test_readme_upstream_marker_is_early(self):
+        text = (ROOT / "README.md").read_text(encoding="utf-8")
+        self.assertIn("Upstream: none", text[:2500])
+
+
 class WorkloadTests(unittest.TestCase):
     def test_registry_integrity(self):
         for name in workloads.names():

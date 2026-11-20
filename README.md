@@ -19,7 +19,7 @@ Upstream: none
 
 | workload | traced 峰值 | RSS 峰值(关闭 tracing) | RSS 峰值(开启 tracing) | traced/RSS | 判定 | 释放后 RSS 留存 |
 |---|---:|---:|---:|---:|---|---:|
-| `small_objects` 200k 两键 dict | 42.8 MiB | 44.6 MiB | 106.3 MiB | 0.96x | agree | 100% |
+| `small_objects` 200k 两键 dict | 42.8 MiB | 44.6 MiB | 106.2 MiB | 0.96x | agree | 100% |
 | `bytes_1k` 200k × 1 KiB | 203.2 MiB | 206.0 MiB | 225.2 MiB | 0.99x | agree | 100% |
 | `churn_free` 分配后全部释放 | 42.8 MiB | 44.6 MiB | 106.1 MiB | 0.96x | agree | **3.7%** |
 | `json_roundtrip` 8 MiB 文档 | 33.7 MiB | 35.8 MiB | 75.8 MiB | 0.94x | agree | 59% |
