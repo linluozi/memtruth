@@ -11,7 +11,7 @@ Upstream: none
 - 我引用的 `tracemalloc` 峰值，能当成进程内存成本吗？（11 条路径里 7 条能；2 条低估到 0.50x/0.51x；2 条 RSS 低于噪声地板而 traced 报了 32–64 MiB）
 - 打开 `tracemalloc` 本身会让进程多占多少？（本机实测最多 **+76.6 MiB，峰值 RSS ×2.77**）
 - 我把对象全释放了，RSS 会还回来吗？（取决于负载：3.7% 到 100% 都实测到了）
-- 我的内存测试台本身可信吗？（`memtruth gate` 直接对测试台判不合格，本仓自己的 9/11 条负载在 ×1.25 门槛下不合格）
+- 我的内存测试台本身可信吗？（`memtruth gate` 直接对测试台判不合格：本仓 11 条负载里 6 条在 ×1.25 门槛下不合格，2 条因 RSS 低于噪声地板不参与比值）
 
 ## 2 · 实测（本机真实输出，`benchmark/calibration.json`）
 
@@ -62,10 +62,10 @@ FAIL regex_findall    profiler inflates peak RSS x2.77 > x1.25
 FAIL small_objects    profiler inflates peak RSS x2.38 > x1.25
 FAIL sqlite_rows      profiler inflates peak RSS x2.10 > x1.25
 FAIL stdlib_compile   profiler inflates peak RSS x1.49 > x1.25
-7 workload(s) failed the memory-instrument gate   (exit=1)
+6 workload(s) failed the memory-instrument gate   (exit=1)
 ```
 
-**本仓自己的 11 条负载里有 9 条在 x1.25 下不合格**——这是结论，不是 bug：只要进程里有大量小对象，开 tracemalloc 测 RSS 就会把 trace 元数据算进去。闸门的用途是让 CI 在引用内存数字前先发现这件事；RSS 低于 1 MiB 的负载不参与该比值（分母是噪声）。
+**本仓自己的 11 条负载里有 6 条在 x1.25 下不合格，另有 2 条因 RSS 低于噪声地板不参与该比值**——这是结论，不是 bug：只要进程里有大量小对象，开 tracemalloc 测 RSS 就会把 trace 元数据算进去。闸门的用途是让 CI 在引用内存数字前先发现这件事；RSS 低于 1 MiB 的负载不参与该比值（分母是噪声）。
 
 ## 5 · 复现（三条命令）
 
@@ -93,7 +93,7 @@ PYTHONPATH=. python3 -m unittest discover -s tests -v
 
 ## 本轮创新
 
-**B 档。** 台账里 `peakgate`（单次调用 tracemalloc 高水位）、`slotsgate`/`slotfit`（每实例 heap）、`speedgap`（合成 vs 真实计时）都**信任 tracemalloc 读数**；本仓第一次把它当被测对象做三路对拍：traced 峰值 / 关闭 tracing 的 RSS 峰值 / 开启 tracing 的 RSS 峰值，按分配路径给出双向偏差与 **profiler 自身成本**（最多 ×2.77）。结论当场可证伪：`np.zeros` 改成写满，over-report 消失（≥64x → 1.00x）；不启动 tracemalloc，×2.77 的自成本消失。它还给出一个可执行判据（`gate`），并诚实地让本仓自己的 9/11 条负载不合格。这同时约束了本团队此前的内存声明——那些是 traced 字节，不是驻留内存。
+**B 档。** 台账里 `peakgate`（单次调用 tracemalloc 高水位）、`slotsgate`/`slotfit`（每实例 heap）、`speedgap`（合成 vs 真实计时）都**信任 tracemalloc 读数**；本仓第一次把它当被测对象做三路对拍：traced 峰值 / 关闭 tracing 的 RSS 峰值 / 开启 tracing 的 RSS 峰值，按分配路径给出双向偏差与 **profiler 自身成本**（最多 ×2.77）。结论当场可证伪：`np.zeros` 改成写满，over-report 消失（≥64x → 1.00x）；不启动 tracemalloc，×2.77 的自成本消失。它还给出一个可执行判据（`gate`），并诚实地让本仓自己的 6/11 条负载不合格。这同时约束了本团队此前的内存声明——那些是 traced 字节，不是驻留内存。
 
 ## License
 
