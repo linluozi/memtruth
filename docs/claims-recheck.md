@@ -18,7 +18,7 @@
 1. **写数字必须带口径**：「峰值 4.7 MB (traced)」而不是「内存 4.7 MB」。
 2. **做 A/B 对比时，两种模式都要测**：只在 `tracemalloc` 下对比，会把 ×2.38–×2.77 的自成本算进被测实现，且不同负载的放大倍数不同。
 3. **分母小于 1 MiB 不给倍数**：4 KiB 的 RSS 差分除 64 MiB，得到的 16392x 是噪声放大器。`memtruth` 在 1 MiB 以下只报下界（`rss-below-noise-floor` / `below-noise-floor`）。
-4. **峰值与留存分开报**：本机同一句 `del` + `gc.collect()`，留存从 3.7%（`churn_free`）到 100%（`small_objects`）都有；「RSS 不归还」不是通用事实。
+4. **峰值与留存分开报**：本机同一句 `del` + `gc.collect()`，留存从 3.3%（`churn_free`）到 100%（`small_objects`）都有；「RSS 不归还」不是通用事实。
 
 ## 3 · 本团队历史内存声明的口径复核
 
