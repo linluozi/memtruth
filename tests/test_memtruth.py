@@ -125,6 +125,23 @@ class ReportTests(unittest.TestCase):
         self.assertEqual(len(table), 1)
         self.assertEqual(table[0]["verdict"]["agreement"], "agree")  # 210/200
 
+    def test_rsd(self):
+        recs = []
+        for val in (100, 100, 100):
+            recs.append({"workload": "w", "mode": "control", "rss_peak_delta": val,
+                         "rss_final_delta": 10, "traced_peak": None, "traced_cur": None})
+        summary = report.summarize(recs)
+        self.assertEqual(summary["w"]["control"]["rss_peak_delta"]["rsd"], 0.0)
+
+    def test_max_rsd(self):
+        recs = []
+        for val in (100, 100, 300):
+            recs.append({"workload": "w", "mode": "control", "rss_peak_delta": val,
+                         "rss_final_delta": 10, "traced_peak": None, "traced_cur": None})
+        worst, where = report.max_rsd(report.summarize(recs))
+        self.assertGreater(worst, 0.4)
+        self.assertIn("rss_peak_delta", where)
+
     def test_markdown_contains_header_and_name(self):
         m = self.MIB
         recs = [

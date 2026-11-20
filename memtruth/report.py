@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import statistics
+
 from . import verdict
 
 FIELDS = ("rss_peak_delta", "rss_final_delta", "traced_peak", "traced_cur")
@@ -37,13 +39,28 @@ def summarize(records):
             if not vals:
                 entry[field] = None
                 continue
+            mean = sum(vals) / len(vals)
             entry[field] = {
                 "median": percentile(vals, 50),
                 "p25": percentile(vals, 25),
                 "p75": percentile(vals, 75),
+                "rsd": (statistics.stdev(vals) / mean) if len(vals) > 1 and mean else None,
             }
         summary.setdefault(name, {})[mode] = entry
     return summary
+
+
+def max_rsd(summary):
+    """Largest relative standard deviation across all fields and groups."""
+    worst = 0.0
+    where = None
+    for name, modes in summary.items():
+        for mode, entry in modes.items():
+            for field in FIELDS:
+                cell = entry.get(field)
+                if cell and cell.get("rsd") is not None and cell["rsd"] > worst:
+                    worst, where = cell["rsd"], "%s/%s/%s" % (name, mode, field)
+    return worst, where
 
 
 def rows(summary):
