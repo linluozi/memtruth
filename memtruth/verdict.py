@@ -95,7 +95,9 @@ def classify(traced_peak, rss_peak_control, rss_peak_traced,
         "instrument_cost_bytes": cost,
         "warning": warning,
         "retained_fraction": (
-            round(max(0.0, rss_final_control) / rss_peak_control, 4)
+            # VmRSS and VmHWM are both kB-granular, so a final reading may
+            # exceed the peak by one page; clamp instead of reporting >1.0.
+            round(min(1.0, max(0.0, rss_final_control) / rss_peak_control), 4)
             if rss_final_control is not None else None),
     }
 

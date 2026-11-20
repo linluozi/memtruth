@@ -20,24 +20,32 @@ from . import proc, workloads
 
 
 def _measure(run, mode, scale, label):
+    # Take the RSS baseline BEFORE tracing starts: reading /proc allocates
+    # strings whose digit widths depend on the process size, so doing it
+    # inside the traced window makes traced_peak vary by a few KiB run to run.
     gc.collect()
+    before = proc.snapshot()
+
     tracing = mode == "traced"
     traced_base = 0
     if tracing:
         tracemalloc.start()
         traced_base = tracemalloc.get_traced_memory()[0]
 
-    before = proc.snapshot()
     run()
-    peak = proc.snapshot()
-    gc.collect()
-    final = proc.snapshot()
 
+    # Read the traced numbers before any further /proc reads, so the
+    # instrumentation's own allocations are not counted as workload bytes.
     traced_cur = traced_peak = traced_final = None
     if tracing:
         cur, peak_bytes = tracemalloc.get_traced_memory()
         traced_cur = cur - traced_base
         traced_peak = peak_bytes - traced_base
+
+    peak = proc.snapshot()
+    gc.collect()
+    final = proc.snapshot()
+    if tracing:
         traced_final = tracemalloc.get_traced_memory()[0] - traced_base
         tracemalloc.stop()
 

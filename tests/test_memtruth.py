@@ -88,6 +88,11 @@ class VerdictTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             verdict.classify(1, 0, 1)
 
+    def test_retained_fraction_is_clamped(self):
+        m = self.MIB
+        v = verdict.classify(100*m, 100*m, 100*m, rss_final_control=100*m + 4096)
+        self.assertEqual(v["retained_fraction"], 1.0)
+
     def test_retained_fraction(self):
         m = self.MIB
         v = verdict.classify(100*m, 100*m, 100*m, rss_final_control=25*m)
@@ -213,9 +218,9 @@ class MeasureTests(unittest.TestCase):
         self.assertGreater(rec["rss_peak_delta"], 0)
 
     def test_traced_bytes_are_deterministic(self):
-        a = measure.run_once(workload="small_objects", mode="traced", scale=0.002)
-        b = measure.run_once(workload="small_objects", mode="traced", scale=0.002)
-        self.assertEqual(a["traced_peak"], b["traced_peak"])
+        peaks = [measure.run_once(workload="small_objects", mode="traced",
+                                  scale=0.002)["traced_peak"] for _ in range(5)]
+        self.assertEqual(len(set(peaks)), 1, peaks)
 
     def test_argument_validation(self):
         with self.assertRaises(ValueError):

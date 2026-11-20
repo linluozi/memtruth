@@ -19,25 +19,25 @@ Upstream: none
 
 | workload | traced 峰值 | RSS 峰值(关闭 tracing) | RSS 峰值(开启 tracing) | traced/RSS | 判定 | 释放后 RSS 留存 |
 |---|---:|---:|---:|---:|---|---:|
-| `small_objects` 200k 两键 dict | 42.8 MiB | 44.6 MiB | 106.2 MiB | 0.96x | agree | 100% |
+| `small_objects` 200k 两键 dict | 42.7 MiB | 44.6 MiB | 106.2 MiB | 0.96x | agree | 100% |
 | `bytes_1k` 200k × 1 KiB | 203.2 MiB | 206.0 MiB | 225.2 MiB | 0.99x | agree | 100% |
-| `churn_free` 分配后全部释放 | 42.8 MiB | 44.6 MiB | 106.1 MiB | 0.96x | agree | **3.7%** |
+| `churn_free` 分配后全部释放 | 42.7 MiB | 44.6 MiB | 106.1 MiB | 0.96x | agree | **3.6%** |
 | `json_roundtrip` 8 MiB 文档 | 33.7 MiB | 35.8 MiB | 75.8 MiB | 0.94x | agree | 59% |
 | `regex_findall` 1 MiB → 786k 对象 | 38.7 MiB | 43.2 MiB | 119.8 MiB | 0.90x | agree | 98% |
-| `stdlib_compile` 5 个 stdlib 包真实源码 | 4.9 MiB | 5.5 MiB | 8.2 MiB | 0.88x | agree | 94% |
+| `stdlib_compile` 5 个 stdlib 包真实源码 | 4.8 MiB | 5.5 MiB | 8.1 MiB | 0.89x | agree | 86% |
 | `numpy_touched` 64 MiB 全页写入 | 64.0 MiB | 64.0 MiB | 64.0 MiB | 1.00x | agree | 100% |
 | `mmap_pages` 32 MiB 匿名映射 | 32.0 MiB | 63.9 MiB | 63.9 MiB | 0.50x | under-report | 50% |
-| `sqlite_rows` 20k 行内存表 | 1.9 MiB | 3.6 MiB | 7.5 MiB | 0.52x | under-report | 100% |
+| `sqlite_rows` 20k 行内存表 | 1.8 MiB | 3.7 MiB | 7.6 MiB | 0.50x | under-report | 100% |
 | `numpy_zeros` 64 MiB 未写入 | 64.0 MiB | 0.0 MiB | 0.0 MiB | **≥64x** | rss-below-noise-floor | 100% |
 | `zlib_zeros` 压缩 32 MiB 零字节 | 32.6 MiB | 0.4 MiB | 0.4 MiB | **≥33x** | rss-below-noise-floor | 100% |
 
-三次重复的最大相对标准差为 **3.15%**（`churn_free/control/rss_final_delta`），所有字段 RSD < 5%；噪声主要来自 RSS 的 4 KiB 页粒度与 arena 归还时机，因此没有需要单独解释的高噪声规模（逐字段 RSD 见 `benchmark/calibration.json` 的 `summary`）。
+三次重复的最大相对标准差为 **6.41%**（`churn_free/control/rss_final_delta`），其余字段 RSD 均 < 5%。该 6.41% 来自 `churn_free` 释放后 RSS 的归还时机（三次分别为 3.68/3.26/3.61%），低于任务书要求的 10% 警戒线；噪声主要来自 RSS 的 4 KiB 页粒度与 arena 回收策略（逐字段 RSD 见 `benchmark/calibration.json` 的 `summary`）。
 
 三条可引用、也可被推翻的结论：
 
-1. **traced 峰值 ≠ 驻留内存，偏差双向。** 未写入的零页（`numpy.zeros`、`bytes(n)`）只映射共享零页，RSS 几乎不涨，tracemalloc 却按请求字节全额记账：RSS 少于 **1 MiB 噪声地板**，traced 报 32.6–64.0 MiB，因此只报下界 **≥33x / ≥64x**（不把 4 KiB 的分母除成 16392x）。反方向：`sqlite3` 页缓存走 C `malloc`、`mmap` 映射不是分配器对象，traced 只看到 **0.50x–0.52x**。纯 pymalloc 留存负载（`small_objects`、`bytes_1k`）两者只差 1%–4%。
-2. **开 profiling 本身有成本，且不被它自己记账。** `regex_findall` 上 tracing 把峰值 RSS 从 43.2 MiB 抬到 119.8 MiB（**+76.6 MiB，×2.77**）；`small_objects`/`churn_free` +61.5–61.6 MiB（×2.38），`json_roundtrip` +40.0 MiB（×2.12），`sqlite_rows` +3.9 MiB（×2.09），真实源码 `stdlib_compile` +2.7 MiB（×1.49）。trace 元数据用原始分配器，不在 traced 数字里。任何「开着 tracemalloc 测 RSS」的对比都会把这笔算到被测代码头上。
-3. **释放后 RSS 是否归还没有统一答案。** 同样 `del` + `gc.collect()`：`churn_free` 只留 3.7%（表中取整 4%；三次运行 3.7/3.7/3.7），`json_roundtrip` 58%–59%，`regex_findall` 98%，`small_objects` 100%。「RSS 只涨不落」是负载性质，不是解释器常量；工具报 `retained_fraction`，不替你下结论。
+1. **traced 峰值 ≠ 驻留内存，偏差双向。** 未写入的零页（`numpy.zeros`、`bytes(n)`）只映射共享零页，RSS 几乎不涨，tracemalloc 却按请求字节全额记账：RSS 少于 **1 MiB 噪声地板**，traced 报 32.6–64.0 MiB，因此只报下界 **≥33x / ≥64x**（不把 4 KiB 的分母除成 16392x）。反方向：`sqlite3` 页缓存走 C `malloc`、`mmap` 映射不是分配器对象，traced 只看到 **0.50x**。纯 pymalloc 留存负载（`small_objects`、`bytes_1k`）两者只差 1%–4%。
+2. **开 profiling 本身有成本，且不被它自己记账。** `regex_findall` 上 tracing 把峰值 RSS 从 43.2 MiB 抬到 119.8 MiB（**+76.6 MiB，×2.77**）；`small_objects`/`churn_free` +61.5–61.6 MiB（×2.38），`json_roundtrip` +40.0 MiB（×2.12），`sqlite_rows` +3.9 MiB（×2.06），真实源码 `stdlib_compile` +2.7 MiB（×1.49）。trace 元数据用原始分配器，不在 traced 数字里。任何「开着 tracemalloc 测 RSS」的对比都会把这笔算到被测代码头上。
+3. **释放后 RSS 是否归还没有统一答案。** 同样 `del` + `gc.collect()`：`churn_free` 只留 3.3%–3.7%（三次 3.68/3.26/3.61%），`json_roundtrip` 58.6%–58.7%，`regex_findall` 98%，`small_objects` 100%。「RSS 只涨不落」是负载性质，不是解释器常量；工具报 `retained_fraction`，不替你下结论。
 
 ## 3 · 可证伪对照与测试
 

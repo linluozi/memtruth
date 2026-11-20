@@ -3,12 +3,12 @@
   "mode": "traced",
   "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
   "python": "3.12.3",
-  "rss_before": 14753792,
-  "rss_final_delta": 64286720,
-  "rss_peak_delta": 79437824,
+  "rss_before": 14782464,
+  "rss_final_delta": 64327680,
+  "rss_peak_delta": 79425536,
   "scale": 1.0,
-  "traced_cur": 18092562,
-  "traced_final": 18092690,
-  "traced_peak": 35314765,
+  "traced_cur": 18087488,
+  "traced_final": 18074430,
+  "traced_peak": 35293497,
   "workload": "json_roundtrip"
 }
